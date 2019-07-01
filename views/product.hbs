@@ -1,0 +1,43 @@
+<div class="container-fluid fullheight">
+    {{>header}}
+<div class="container-fluid col-md-8 col-md-offset-2" >
+    {{#if product}}
+        
+        <table class="table table-striped">
+             <thead>
+                <tr>
+                     <th class="text-center">Name</th>
+                     <th class="text-center">Category</th>
+                     <th class="text-center">Image</th>
+                     <th class="text-center">Description</th>
+                     <th class="text-center">Price</th> 
+                     <th class="text-center" colspan=2>Actions</th> 
+                </tr>
+            </thead>     
+             <tbody>
+                 {{#each product}}
+                    <tr>
+                        <td class="text-center">{{this.name}}</td>
+                        <td class="text-center">{{this.category}}</td>
+                        <td class="text-center">{{this.image}}</td>
+                        <td class="text-center">{{this.description}}</td>
+                        <td class="text-center">{{this.price}}</td>
+                        <td colspan=2>
+                            <a href="/delete-product/{{this._id}}" class="text-primary">delete</a>
+                            <a href="/edit-product/{{this._id}}"class="text-primary">edit</a>
+                        </td>
+                        
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        
+    {{/if}}
+    {{#unless product}}
+     <p class="container-fluid bg-danger">No Product available</p>
+    {{/unless}}
+</div>
+
+{{>footer}}
+</div>
+

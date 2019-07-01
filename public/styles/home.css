@@ -1,0 +1,78 @@
+html{
+    height: 100%;
+   
+}
+body{
+    height: 100%;
+}
+
+div.pp{
+   position: absolute;
+   bottom: 0;
+   width: 100%;
+}
+div.pp div{
+    width: 70%;
+}
+a{
+    color: white;
+    font-weight: bold;
+
+}
+a:hover{
+    text-decoration: none;
+}
+.navbar{
+    margin-bottom:0;
+}
+.navbar-default{
+    background-color:rgb(47, 133, 145);
+    font-weight: bold;
+    color: white;
+}
+.navbar-default .navbar-nav li a{
+    color: white;
+}
+.navbar-default .navbar-brand{
+    color:white;
+}
+.img-responsive{
+    height:30px;
+}
+#wrapper{
+    height:100%;
+    
+}
+#wrapper #sidebar-wrapper{
+    background-color:rgb(47, 133, 145);
+}
+#wrapper #sidebar-wrapper li a {
+ color:white;
+ transition:.25s all ease-in-out;
+}
+#wrapper #sidebar-wrapper li a:hover {
+    background-color:rgb(19, 89, 99);
+   }
+#wrapper #page-content-wrapper{
+    position:relative;
+    height:100%;
+    padding-left: 0;
+    padding-top:0;
+    padding-right:0;
+}
+.fullheight{
+    height:100%;
+    min-width: 335px;
+}
+
+.otherclass{
+    position:absolute;
+    bottom: 0;
+    width: 100%;
+}
+@media  (max-width:773px){
+    .otherclass{
+        position: relative;
+    }
+}
+
