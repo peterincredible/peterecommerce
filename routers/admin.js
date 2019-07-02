@@ -104,4 +104,14 @@ res.redirect("/admin/add-product");
 
 })
 //end of the post delete-product routh
+//delete product route
+ router.get("/delete-product/:id",async (req,res)=>{
+     try{
+          await Product.findByIdAndRemove(req.params.id)
+           req.flash("success","data has been successfully deleted");
+           res.redirect("/admin/product");
+     }catch(e){
+        req.flash
+     }
+ })
 module.exports = router;
