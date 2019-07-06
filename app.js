@@ -33,6 +33,9 @@ app.use(flash());
 let port = process.env.port || 3000;
 app.use(express.static(`public`));
 app.use("/admin",express.static("public"));
+app.use("/admin/add-product",express.static("public"));
+app.use("/admin/product",express.static("public"));
+app.use("/admin/edit-product",express.static("public"));
 app.get("/",(req,res)=>{
     res.render("home",{title:"home"});
 });

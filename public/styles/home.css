@@ -66,4 +66,25 @@ a:hover{
 .table-responsive{
     overflow-x: auto;
 }
+.product-height{
+    min-height:557px;
+}
+.edit-product-height{
+    min-height:575px;
+}
+.home-height{
+    min-height:575px;
+}
 
+@media(max-width:770px){
+    .product-height{
+        min-height:570px;
+    }
+    .home-height{
+        min-height:585px;
+    }
+    .edit-product-height{
+        min-height:585px;
+    }
+    
+}

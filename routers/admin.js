@@ -53,7 +53,7 @@ router.get("/product",async (req,res)=>{
     let product = await Product.find({});
     console.log(product);
     if(product.length > 0){
-      res.render("product",{product});
+      res.render("product",{product,message:req.flash("success")});
     }else{
       res.render("product");
     }
@@ -88,8 +88,7 @@ let product = new Product(
   image:req.file.originalname
   }
 );
-/*
-*/
+
 try{
   let data = await product.save();
   console.log(data);
@@ -111,7 +110,19 @@ res.redirect("/admin/add-product");
            req.flash("success","data has been successfully deleted");
            res.redirect("/admin/product");
      }catch(e){
-        req.flash
+        req.flash("error","there was an error deleting the product");
+        res.redirect("/admin/product");
      }
  })
+ //start of the edit product routh
+ router.get("/edit-product/:id",async (req,res)=>{
+  try{
+      let data =  await Product.findById(req.params.id)
+        res.render("edit-product",{title:"edit product",product:data});
+  }catch(e){
+     req.flash("error","there was an error editing  the product");
+     res.redirect("/admin/product");
+  }
+})
+ //#end of the edit product routh
 module.exports = router;
