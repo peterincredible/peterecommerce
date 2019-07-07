@@ -1,8 +1,21 @@
 let express = require("express");
-let hbs = require("express-handlebars");
+let exphbs = require("express-handlebars");
+let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
+    compare:function(val1,val2,options){
+        if(val1 == val2){
+            console.log("val1 is"+val1);
+            console.log("val2 is"+val2);
+            return  options.fn(this);
+        }else{
+            console.log("val1 is"+val1);
+            console.log("val2 is"+val2);
+            return options.inverse(this);
+        }
+    }
+}});
 let app = express();
 //setting up the view engine
-app.engine(".hbs",hbs({extname:".hbs",defaultLayout:"main"}));
+app.engine(".hbs",hbs.engine);
 app.set("view engine",".hbs");
 //#end of setting up the view engine
 //set up various middlewares

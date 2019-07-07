@@ -117,8 +117,10 @@ res.redirect("/admin/add-product");
  //start of the edit product routh
  router.get("/edit-product/:id",async (req,res)=>{
   try{
-      let data =  await Product.findById(req.params.id)
-        res.render("edit-product",{title:"edit product",product:data});
+      let product =  await Product.findById(req.params.id)
+      let categories= await cat.find({}).select("name -_id").exec();
+      console.log(categories);
+        res.render("edit-product",{title:"edit product",product,categories});
   }catch(e){
      req.flash("error","there was an error editing  the product");
      res.redirect("/admin/product");
