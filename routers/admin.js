@@ -17,8 +17,6 @@ var storage = multer.diskStorage({
 router.get("/add-product",async (req,res)=>{
     let data= await cat.find({}).select("name -_id").exec();
        res.render("add-product",{title:"add product",categories:data,message:req.flash("success")});
-     
-   
 })
 //end of the add-product rout on get request
 //the post add-product rout 
@@ -38,11 +36,11 @@ try{
     console.log(data);
     await fs.move("upload/"+req.file.originalname,"public/images/"+data._id+"/"+data.image);
     req.flash("success","product has been successfully added");
-    res.redirect("/admin/add-product");
+    res.redirect("/admin/product");
 }catch(e){
   console.log("there was an error");
   req.flash("error","there was and error adding product")
-  res.redirect("/admin/add-product");
+  res.redirect("/admin/product");
 }
 
 })
@@ -53,17 +51,13 @@ router.get("/product",async (req,res)=>{
     let product = await Product.find({});
     console.log(product);
     if(product.length > 0){
-      res.render("product",{product,message:req.flash("success")});
+     return res.render("product",{product});
     }else{
-      res.render("product");
+      return res.render("product");
     }
-   
   }catch(e){
       console.log("there was an error");
   }
- 
- 
-
 })
 //end of the product routh
 //the delete-product router on get request
@@ -74,56 +68,20 @@ router.get("/delete-product/:id",async (req,res)=>{
     req.flash("success","product successfully deleted");
     res.redirect("/admin/product");
   }catch(e){
-    req.flash("success","there was an error deleting product ");
+    req.flash("error","there was an error deleting product ");
     res.redirect("/admin/product");
   }
 })
 //end of the delete-product rout on get request
-//the post delete-product rout 
-router.post("/add-product",upload.single("image"),async (req,res)=>{
-let product = new Product(
-  {name:req.body.name,
-  category:req.body.category,
-  price:req.body.price,
-  description:req.body.description,
-  image:req.file.originalname
-  }
-);
 
-try{
-  let data = await product.save();
-  console.log(data);
-  await fs.move("upload/"+req.file.originalname,"public/images/"+data._id+"/"+data.image);
-  req.flash("success","product has been successfully added");
-  res.redirect("/admin/add-product");
-}catch(e){
-console.log("there was an error");
-req.flash("error","there was and error adding product")
-res.redirect("/admin/add-product");
-}
-
-})
-//end of the post delete-product routh
-//delete product route
- router.get("/delete-product/:id",async (req,res)=>{
-     try{
-          await Product.findByIdAndRemove(req.params.id)
-          await fs.remove('public')
-           req.flash("success","data has been successfully deleted");
-           res.redirect("/admin/product");
-     }catch(e){
-        req.flash("error","there was an error deleting the product");
-        res.redirect("/admin/product");
-     }
- })
  //start of the get edit product routh
  router.get("/edit-product/:id",async (req,res)=>{
   try{
-      let product =  await Product.findById(req.params.id)
+      let product =  await Product.findById(req.params.id);
       let categories= await cat.find({}).select("name -_id").exec();
         res.render("edit-product",{title:"edit product",product,categories});
   }catch(e){
-     req.flash("error","there was an error editing  the product");
+     req.flash("error","there was an error visiting the edit page");
      res.redirect("/admin/product");
   }
 })
@@ -138,24 +96,41 @@ router.post("/edit-product/:id",upload.single("image"),async (req,res)=>{
       let image=req.file.originalname;
       //await fs.move("upload/"+req.file.originalname,"public/images/"+data._id+"/"+data.image);
       let data = await Product.findById(req.params.id).select("image").exec();
-      if(data.name == ""){
+      if(data.image == ""){
         let product = await Product.findByIdAndUpdate(req.params.id,{name,category,price,description,image},{new:true});
         await fs.move("upload/"+req.file.originalname,"public/images/"+product._id+"/"+product.image);
+        req.flash("success","product successfully edited");
         res.redirect("/admin/product");
       }else if(fs.pathExistsSync("public/images/"+data._id+"/"+data.image)){
           await fs.remove("public/images/"+data._id+"/"+data.image);
           let product = await Product.findByIdAndUpdate(req.params.id,{name,category,price,description,image},{new:true});
           await fs.move("upload/"+req.file.originalname,"public/images/"+product._id+"/"+product.image);
+          req.flash("success","product successfully edited");
           res.redirect("/admin/product");
       }else{
         let product = await Product.findByIdAndUpdate(req.params.id,{name,category,price,description,image},{new:true});
         await fs.move("upload/"+req.file.originalname,"public/images/"+product._id+"/"+product.image);
+        req.flash("success","product successfully edited");
         res.redirect("/admin/product");
       }
   }catch(err){
       console.log("there was and error in the post edit-product")
+      req.flash("error","product cant be edited and error occured");
       res.redirect("/admin/edit-product");
-  }      
+  }  
+  /*try{
+    let name = req.body.name;
+    let category = req.body.category;
+    let price = req.body.price;
+    let description = req.body.description;
+    let image = req.file.originalname;
+    //let oldimage = await Product.findById(req.params.id).select("image -_id").exec();
+    //console.log(oldimage)
+    console.log(image+"this is the new image");
+
+  }catch(err){
+    console.log("an error occured");
+  }*/   
 });
  //#end of the post edit product routh
 module.exports = router;

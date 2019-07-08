@@ -1,5 +1,6 @@
 let express = require("express");
 let exphbs = require("express-handlebars");
+let Product = require("./db/product");
 let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
     compare:function(val1,val2,options){
         if(val1 == val2){
@@ -47,8 +48,18 @@ app.use("/admin",express.static("public"));
 app.use("/admin/add-product",express.static("public"));
 app.use("/admin/product",express.static("public"));
 app.use("/admin/edit-product",express.static("public"));
-app.get("/",(req,res)=>{
-    res.render("home",{title:"home"});
+app.use(function(req,res,next){
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
+    next();
+})
+app.get("/",async (req,res)=>{
+    try{
+        res.render("home",{title:"home",product:await Product.find({})}); 
+    }catch(err){
+        res.send("<h1 class='text-center'>an error occured</h1>");
+    }
+    
 });
 //getting the various routers
 let adminrouter = require("./routers/admin");

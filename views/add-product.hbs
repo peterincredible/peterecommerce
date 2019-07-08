@@ -7,6 +7,10 @@
                 {{#if error}}
                 <div class="bg-danger text-center">{{error}}</div>
                 {{/if}}
+                {{#if success}}
+                <div class="bg-primary text-center">{{success}}</div>
+                {{/if}}
+
                 <h1 class="text-center">Add a Product</h1>
                 <form class="form-horizontal"style="position:static"method="post" enctype="multipart/form-data" action="/admin/add-product">
                     <div class="form-group">

@@ -5,11 +5,15 @@
         </div>
     </div>
     <div class="row product-height">
-        {{#if message}}
+        {{#if success}}
         <div class="col-md-8 col-md-offset-2">
-            <p class="bg-primary text-center text-dark">{{message}}</p>
+            <p class="bg-primary text-center text-dark">{{success}}</p>
         </div>
         {{/if}}
+        <div class="col-md-8 col-md-offset-2">
+            <a class="btn btn-primary" href="/admin/add-product">Add Product</a>
+        </div>
+        <br/>
         <div class="col-md-12">
             <!--<div class="table-responsive">-->
                 {{#if product}}
@@ -43,7 +47,10 @@
                 </table>
          {{/if}}
     {{#unless product}}
-     <p class="container-fluid bg-danger">No Product available</p>
+    <div class="col-md-6 col-md-offset-3">
+         <p class="container-fluid bg-danger text-center">No Product available</p>
+    </div>
+    
     {{/unless}}
 
           <!--  </div>-->
