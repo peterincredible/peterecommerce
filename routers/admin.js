@@ -69,7 +69,8 @@ router.get("/product",async (req,res)=>{
 //the delete-product router on get request
 router.get("/delete-product/:id",async (req,res)=>{
   try{
-    await Product.findByIdAndRemove(req.params.id)
+    await Product.findByIdAndRemove(req.params.id);
+    await fs.remove("public/images/"+req.params.id)
     req.flash("success","product successfully deleted");
     res.redirect("/admin/product");
   }catch(e){
@@ -107,6 +108,7 @@ res.redirect("/admin/add-product");
  router.get("/delete-product/:id",async (req,res)=>{
      try{
           await Product.findByIdAndRemove(req.params.id)
+          await fs.remove('public')
            req.flash("success","data has been successfully deleted");
            res.redirect("/admin/product");
      }catch(e){
@@ -114,12 +116,11 @@ res.redirect("/admin/add-product");
         res.redirect("/admin/product");
      }
  })
- //start of the edit product routh
+ //start of the get edit product routh
  router.get("/edit-product/:id",async (req,res)=>{
   try{
       let product =  await Product.findById(req.params.id)
       let categories= await cat.find({}).select("name -_id").exec();
-      console.log(categories);
         res.render("edit-product",{title:"edit product",product,categories});
   }catch(e){
      req.flash("error","there was an error editing  the product");
@@ -127,4 +128,34 @@ res.redirect("/admin/add-product");
   }
 })
  //#end of the edit product routh
+ //start of the post edit product routh
+router.post("/edit-product/:id",upload.single("image"),async (req,res)=>{
+  try{
+      let name=req.body.name;
+      let category=req.body.category;
+      let price= req.body.price;
+      let description=req.body.description;
+      let image=req.file.originalname;
+      //await fs.move("upload/"+req.file.originalname,"public/images/"+data._id+"/"+data.image);
+      let data = await Product.findById(req.params.id).select("image").exec();
+      if(data.name == ""){
+        let product = await Product.findByIdAndUpdate(req.params.id,{name,category,price,description,image},{new:true});
+        await fs.move("upload/"+req.file.originalname,"public/images/"+product._id+"/"+product.image);
+        res.redirect("/admin/product");
+      }else if(fs.pathExistsSync("public/images/"+data._id+"/"+data.image)){
+          await fs.remove("public/images/"+data._id+"/"+data.image);
+          let product = await Product.findByIdAndUpdate(req.params.id,{name,category,price,description,image},{new:true});
+          await fs.move("upload/"+req.file.originalname,"public/images/"+product._id+"/"+product.image);
+          res.redirect("/admin/product");
+      }else{
+        let product = await Product.findByIdAndUpdate(req.params.id,{name,category,price,description,image},{new:true});
+        await fs.move("upload/"+req.file.originalname,"public/images/"+product._id+"/"+product.image);
+        res.redirect("/admin/product");
+      }
+  }catch(err){
+      console.log("there was and error in the post edit-product")
+      res.redirect("/admin/edit-product");
+  }      
+});
+ //#end of the post edit product routh
 module.exports = router;

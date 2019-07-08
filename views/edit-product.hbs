@@ -8,7 +8,7 @@
                      <div class="bg-danger text-center">{{error}}</div>
                 {{/if}}
                 <h1 class="text-center">Edit Product</h1>
-                <form class="form-horizontal"style="position:static"method="post" enctype="multipart/form-data" action="add-product">
+                <form class="form-horizontal"style="position:static"method="post" enctype="multipart/form-data" action="/admin/edit-product/{{product._id}}">
                     <div class="form-group">
                         <label  class="col-sm-2 control-label">Product Name</label>
                         <div class="col-sm-10">
@@ -28,7 +28,7 @@
                                 <option>none</option>
                                 {{#each categories}}
                                      {{#compare name ../product.category}}
-                                        <option selected>aaaaaa{{name}}</option>
+                                        <option selected>{{name}}</option>
                                         {{else}}
                                         <option>{{name}}</option>
                                      {{/compare}}

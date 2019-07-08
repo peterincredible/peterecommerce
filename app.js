@@ -3,12 +3,10 @@ let exphbs = require("express-handlebars");
 let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
     compare:function(val1,val2,options){
         if(val1 == val2){
-            console.log("val1 is"+val1);
-            console.log("val2 is"+val2);
+            
             return  options.fn(this);
         }else{
-            console.log("val1 is"+val1);
-            console.log("val2 is"+val2);
+           
             return options.inverse(this);
         }
     }
