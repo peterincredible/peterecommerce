@@ -61,6 +61,17 @@ app.get("/",async (req,res)=>{
     }
     
 });
+//the search product route
+app.get("/search/product",async (req,res)=>{
+  try{
+    let product = await Product.find({category:req.query.search}).exec();
+    console.log("the params value is"+req.params.search);
+    console.log(product);
+    res.render("home",{title:"home",product});
+  }catch(err){
+    console.log("an error occured");
+  }
+})
 //getting the various routers
 let adminrouter = require("./routers/admin");
 app.use("/admin",adminrouter);
