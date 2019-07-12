@@ -1,0 +1,41 @@
+ <div class="container-fluid">
+     <div class="row">
+         {{>header}}
+     </div>
+     <div class="row">
+     <div class="col-md-offset-2 col-md-8 registration-height">
+         <h1 class="text-center"><b>Register Users</b></h1>
+         <form id="registration-form" method="POST" action="/registration">
+             <div class="form-group">
+                 <label for="name">Name</label>
+                 <input type="text" id="name" placeholder="your name" class="form-control"/>
+             </div>
+              <div class="form-group">
+                 <label for="surname">Surname</label>
+                 <input type="text" id="surname" placeholder="your surname" class="form-control"/>
+             </div>
+             <div class="form-group">
+                 <label for="username">Username</label>
+                 <input type="text" class="form-control" id="username" placeholder="username">
+             </div>
+              <div class="form-group">
+                 <label for="email">Email</label>
+                 <input type="email" id="email" placeholder="example@gmail.com" class="form-control"/>
+             </div>
+              <div class="form-group">
+                 <label for="password">Password</label>
+                 <input type="password" id="password" placeholder="your password" class="form-control"/>
+             </div>
+              <div class="form-group">
+                 <label for="confirm-password">Confirm Password</label>
+                 <input type="password" id="confirm-password" placeholder="confirm password" class="form-control"/>
+             </div>
+             <button class="btn btn-primary" type="submit">Submit</button>
+         </form>
+     </div>
+ </div>
+     <div class="row bg-primary">
+         {{>footer}}
+     </div>
+ </div>
+ 

@@ -22,6 +22,7 @@ let bodyparser = require("body-parser");
 let cookie = require("cookie-parser");
 let session = require("express-session");
 let flash = require("connect-flash");
+let user = require("./routers/user");
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(cookie());
@@ -75,6 +76,7 @@ app.get("/search/product",async (req,res)=>{
 //getting the various routers
 let adminrouter = require("./routers/admin");
 app.use("/admin",adminrouter);
+app.use("/user",user);
 //#end of getting the various routers
 app.listen(port,()=>{
     console.log("server is listening to port 3000"+__dirname);

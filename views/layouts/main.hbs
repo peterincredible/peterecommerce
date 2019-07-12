@@ -43,6 +43,20 @@
         }
         filereader.readAsDataURL(e.target.files[0]);
     })
+    $("#registration-form").submit(function(){
+        if($("#name").val() == ""){
+            return false
+        }
+        if($("#surname").val() == ""){
+            return false;
+        }
+        if($("#username").val() == ""){
+            return false;
+        }
+        if($("#password").val() != $("#confirm-password").val()){
+            return false;
+        }
+    })
 
     </script>
 </body>

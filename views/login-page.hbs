@@ -1,0 +1,66 @@
+ <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#menu-toggle" class="hidden-md hidden-lg" id="menu-toggle">Menu</a>
+                    <p class="hidden-sm hidden-xs"style="color:white">Product</p>
+                </li>
+                <li>
+                    <a href="#">Rice</a>
+                </li>
+                <li>
+                    <a href="#">Beans</a>
+                </li>
+                <li>
+                    <a href="#">Wheat</a>
+                </li>
+                <li>
+                    <a href="#">Dog foods</a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="#">Services</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">{{>header}} </div>
+                <div class="row home-height">
+                    {{#each product}}
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <img src="/images/{{id}}/{{image}}" alt="no image">
+                                <div class="caption">
+                                    <h3>{{name}}</h3>
+                                    <p>{{description}}</p>
+                                    <p><a href="#" class="btn btn-primary" role="button">Buy</a><span class="pull-right">{{price}}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+                <div class="row bg-primary text-center">{{>footer}}</div>
+                    
+          
+            </div>
+         
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    
+
+    <!-- Menu Toggle Script -->
+    
+
