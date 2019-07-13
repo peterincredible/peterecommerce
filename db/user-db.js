@@ -12,9 +12,7 @@ let tempschema = new schema({
     email:{
         type:String,
         required:true
-    },
-    orders:[{type:mongoose.Schema.Types.ObjectId,
-        ref:"orders"}]
+    }
         
 });
 

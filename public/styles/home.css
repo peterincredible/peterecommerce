@@ -85,6 +85,9 @@ a:hover{
 .registration-height{
     min-height:575px;
 }
+.vcenter{
+    vertical-align: middle;
+}
 
 @media(max-width:770px){
     .product-height{

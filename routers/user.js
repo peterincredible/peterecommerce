@@ -9,4 +9,14 @@ router.get("/registration",(req,res)=>{
 router.post("/registration",(req,res)=>{
   res.send("<h1>it worked yaaaahhh</h1>");
 });
+//start of the get login page
+router.get("/login",(req,res)=>{
+  res.render("login-page");
+})
+//end of the get login page
+//start of the post login-page
+router.post("/login",(req,res)=>{
+  res.send("<h1>it worked yaaaahhh</h1>");
+});
+//end of the post login-page
 module.exports = router;
