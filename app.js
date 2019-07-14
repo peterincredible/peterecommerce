@@ -1,6 +1,7 @@
 let express = require("express");
 let exphbs = require("express-handlebars");
 let Product = require("./db/product");
+let passport = require("./mypassport");
 let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
     compare:function(val1,val2,options){
         if(val1 == val2){
@@ -31,6 +32,8 @@ saveUninitialized:true,
 resave:true
 }));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 //#end of setting up various middlewares
 //setting up the mongoose database
  let mongoose = require("mongoose");
@@ -52,10 +55,12 @@ app.use("/admin/edit-product",express.static("public"));
 app.use(function(req,res,next){
     res.locals.error = req.flash("error");
     res.locals.success = req.flash("success");
+    res.locals.user = req.user;
     next();
 })
 app.get("/",async (req,res)=>{
     try{
+        console.log("req.user is "+ " "+req.user);
         res.render("home",{title:"home",product:await Product.find({})}); 
     }catch(err){
         res.send("<h1 class='text-center'>an error occured</h1>");
