@@ -14,29 +14,7 @@ let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
     }
 }});
 let app = express();
-//setting up the view engine
-app.engine(".hbs",hbs.engine);
-app.set("view engine",".hbs");
-//#end of setting up the view engine
-//set up various middlewares
-let bodyparser = require("body-parser");
-let cookie = require("cookie-parser");
-let session = require("express-session");
-let flash = require("connect-flash");
-let user = require("./routers/user");
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended:false}));
-app.use(cookie());
-app.use(session({secret:"beans",
-saveUninitialized:true,
-resave:true
-}));
-app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
-//#end of setting up various middlewares
-//setting up the mongoose database
- let mongoose = require("mongoose");
+let mongoose = require("mongoose");
  mongoose.connect("mongodb://localhost/peterecommerce");
  mongoose.connection.once("open",()=>{
      console.log("successfully connected to the database");
@@ -45,6 +23,31 @@ app.use(passport.session());
      console.log("connection was closed");
  })
 //#ending of setting up the mongoose database
+//setting up the view engine
+app.engine(".hbs",hbs.engine);
+app.set("view engine",".hbs");
+//#end of setting up the view engine
+//set up various middlewares
+let bodyparser = require("body-parser");
+let cookie = require("cookie-parser");
+let session = require("express-session");
+let mongostore = require("connect-mongo")(session);
+let flash = require("connect-flash");
+let user = require("./routers/user");
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended:false}));
+app.use(cookie());
+app.use(session({secret:"beans",
+saveUninitialized:true,
+resave:true,
+store:new mongostore({mongooseConnection:mongoose.connection})
+}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+//#end of setting up various middlewares
+//setting up the mongoose database
+ 
 
 let port = process.env.port || 3000;
 app.use(express.static(`public`));

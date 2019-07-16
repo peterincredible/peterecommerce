@@ -7,6 +7,7 @@
     <div class="row registration-height">
         <div class="col-xs-offset-3 col-xs-6" style="margin-top:140px">
             <form class="form-horizontal" method="Post" action="/user/signin">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
                 <div class="form-group">
                     <div class="col-sm-2">
                         <label for="username" class="control-label">Username</label>

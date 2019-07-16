@@ -23,6 +23,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><img class="img-responsive"src="/images/iconfinder_cart4_216460.png" alt="imgage cant show"/></a></li>
         {{#if user}}
+        <li><a href="/user/dashboard">Dashboard</a></li>
         <li><a href="/user/signout">Sign Out( {{user.username}} )</a></li>
         {{else}}
         <li><a href="/user/signin">Sign In</a></li>

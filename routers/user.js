@@ -2,6 +2,17 @@ let router = require("express").Router();
 let Product = require("../db/product");
 let User = require("../db/user-db");
 let passport = require("../mypassport");
+var csrf = require('csurf');
+var csrfProtection = csrf({ cookie: true });
+//isauthenthicated to check if a user is authenthicated
+  function authenthication(req,res,next){
+      if(req.isAuthenticated()){
+        next();
+      }else{
+       return res.send("<h1>not authorized to view this page</h1>")
+      }
+  }
+//end of the isauthenthication function;
 //working on the registration page
 router.get("/registration",(req,res)=>{
     res.render("registration-page");
@@ -27,8 +38,8 @@ router.post("/registration",(req,res)=>{
   })
 });
 //start of the get signin page
-router.get("/signin",(req,res)=>{
-  res.render("login-page");
+router.get("/signin",csrfProtection,(req,res)=>{
+  res.render("login-page",{csrfToken: req.csrfToken() });
 })
 //end of the get signin page
 //start of the post signin-page
@@ -44,4 +55,9 @@ router.get("/signout",(req,res)=>{
   res.redirect("/");
 })
 //end of the get signut route
+//workin on the user dashboard
+router.get("/dashboard",authenthication,(req,res)=>{
+     res.render("dashboard");
+})
+//end of the dashboard route
 module.exports = router;
