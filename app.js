@@ -59,6 +59,7 @@ app.use(function(req,res,next){
     res.locals.error = req.flash("error");
     res.locals.success = req.flash("success");
     res.locals.user = req.user;
+    res.locals.cartcounter = req.session.cartcounter;
     next();
 })
 app.get("/",async (req,res)=>{
@@ -83,8 +84,10 @@ app.get("/search/product",async (req,res)=>{
 })
 //getting the various routers
 let adminrouter = require("./routers/admin");
+let cartrouter = require("./routers/cart");
 app.use("/admin",adminrouter);
 app.use("/user",user);
+app.use("/cart",cartrouter);
 //#end of getting the various routers
 app.listen(port,()=>{
     console.log("server is listening to port 3000"+__dirname);

@@ -23,6 +23,10 @@ let tempschema = new schema({
     surname:{
         type:String,
         required:true
+    },
+    role:{
+        type:String,
+        default:"user"
     }
         
 });

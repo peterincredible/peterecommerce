@@ -2,6 +2,7 @@ let router = require("express").Router();
 let Product = require("../db/product");
 let User = require("../db/user-db");
 let passport = require("../mypassport");
+let authenthicate = require("../authenthication");
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 //isauthenthicated to check if a user is authenthicated
@@ -51,12 +52,13 @@ router.post("/signin",passport.authenticate("local"),(req,res)=>{
 //start of the get signout route
 router.get("/signout",(req,res)=>{
   req.logout();
+  delete req.session.cartcounter;
   console.log("user has been successfully logout");
   res.redirect("/");
 })
 //end of the get signut route
 //workin on the user dashboard
-router.get("/dashboard",authenthication,(req,res)=>{
+router.get("/dashboard",authenthicate("user"),(req,res)=>{
      res.render("dashboard");
 })
 //end of the dashboard route

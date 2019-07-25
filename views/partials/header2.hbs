@@ -14,7 +14,13 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><img class="img-responsive"src="/images/iconfinder_cart4_216460.png" alt="imgage cant show"/></a></li>
+        <li><a href="#">
+          {{#if cartcounter}}
+               <img class="img-responsive"src="/images/iconfinder_cart4_216460.png" alt="imgage cant show"/><span class="label">{{cartcounter}}</span>
+               {{else}}
+               <img class="img-responsive"src="/images/iconfinder_cart4_216460.png" alt="imgage cant show"/>
+          {{/if}}
+         </a></li>
         {{#if user}}
         <li><a href="/user/dashboard">Dashboard</a></li>
         <li><a href="/user/signout">Sign Out( {{user.username}} )</a></li>
