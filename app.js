@@ -11,6 +11,9 @@ let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
            
             return options.inverse(this);
         }
+    },
+    add:function(val1,val2){
+        return val1 *  val2;
     }
 }});
 let app = express();

@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="row">
+        {{>header2}}    
+    </div>
+    <div class="row registration-height">
+        <div class="col-md-8 col-md-offset-2">
+        <h3><b>Checkout</b></h3>
+        <table class="table table-striped">
+            <thead>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Add</th>
+                <th>Subtract</th>
+            </thead>
+            <tbody>
+               <!--  {{#each cartviewer}}
+                    <tr>
+                        <td>{{name}}</td>
+                        <td><img src="/images/{{_id}}/{{image}}"></td>
+                        <td>{{quantity}}</td>
+                       <td>{{#add quantity price}}</td>
+                    </tr>
+                {{/each}}-->
+            </tbody>
+            <tfoot>
+
+            </tfoot>
+        </table>
+        </div>
+    </div>
+    <div class="row bg-primary">
+        <div class="col-md-12">{{>footer}}</div>
+    </div>
+</div>

@@ -53,6 +53,7 @@ router.post("/signin",passport.authenticate("local"),(req,res)=>{
 router.get("/signout",(req,res)=>{
   req.logout();
   delete req.session.cartcounter;
+  delete req.session.cart;
   console.log("user has been successfully logout");
   res.redirect("/");
 })
