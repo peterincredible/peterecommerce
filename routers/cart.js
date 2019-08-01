@@ -1,5 +1,14 @@
 let router = require("express").Router();
 let Product = require("../db/product");
+router.get("/product/checkout-page/clear-cart",function(req,res){
+     let cart = req.session.cart;
+     for(let data in cart){
+       delete cart[data];
+     }
+     req.session.cart = cart;
+     delete req.session.cartcounter;
+     res.redirect("/cart/product/checkout-page");
+});
 router.get("/product/checkout-page/add/:id",function(req,res){
   let cart = req.session.cart;
   if(!cart){
