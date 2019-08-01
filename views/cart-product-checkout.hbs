@@ -5,27 +5,35 @@
     <div class="row registration-height">
         <div class="col-md-8 col-md-offset-2">
         <h3><b>Checkout</b></h3>
-        <table class="table table-striped">
+        <table class="table ">
             <thead>
-                <th>Name</th>
-                <th>Image</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Add</th>
-                <th>Subtract</th>
+                <th style="text-align:center;">Name</th>
+                <th style="text-align:center;">Image</th>
+                <th style="text-align:center;">Quantity</th>
+                <th style="text-align:center;">Price</th>
+                <th style="text-align:center;">Add</th>
+                <th style="text-align:center;">Subtract</th>
             </thead>
             <tbody>
-               <!--  {{#each cartviewer}}
+               
+           {{#each cartviewer}}
                     <tr>
-                        <td>{{name}}</td>
-                        <td><img src="/images/{{_id}}/{{image}}"></td>
-                        <td>{{quantity}}</td>
-                       <td>{{#add quantity price}}</td>
+                        <td style="text-align:center;">{{name}}</td>
+                        <td style="text-align:center;"><img src="/images/{{_id}}/{{image}}"  style="width:50px;height:50px;"></td>
+                        <td style="text-align:center;">{{quantity}}</td>
+                        <td style="text-align:center;">{{add quantity price}}</td>
+                         <td style="text-align:center;"><a href="/cart/product/checkout-page/add/{{_id}}" style="color:blue;">+</a></td>
+                         <td style="text-align:center;"><a href="/cart/product/checkout-page/sub/{{_id}}" style="color:red;">-</a></td>
+                         <td></td>
+                         <td></td>
                     </tr>
-                {{/each}}-->
+                {{/each}}
             </tbody>
             <tfoot>
-
+                <td></td>
+                <td style="text-align:center;"><b>TOTAL</b></td>
+                <td style="text-align:center;"><b>{{totalquantity}}</b></td>
+                <td style="text-align:center;"><b>{{totalprice}}</b></td>
             </tfoot>
         </table>
         </div>

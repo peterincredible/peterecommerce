@@ -63,11 +63,11 @@ app.use(function(req,res,next){
     res.locals.success = req.flash("success");
     res.locals.user = req.user;
     res.locals.cartcounter = req.session.cartcounter;
+    
     next();
 })
 app.get("/",async (req,res)=>{
     try{
-        console.log("req.user is "+ " "+req.user);
         res.render("home",{title:"home",product:await Product.find({})}); 
     }catch(err){
         res.send("<h1 class='text-center'>an error occured</h1>");
@@ -78,8 +78,6 @@ app.get("/",async (req,res)=>{
 app.get("/search/product",async (req,res)=>{
   try{
     let product = await Product.find({category:req.query.search}).exec();
-    console.log("the params value is"+req.params.search);
-    console.log(product);
     res.render("home",{title:"home",product});
   }catch(err){
     console.log("an error occured");
