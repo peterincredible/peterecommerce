@@ -1,5 +1,27 @@
 let router = require("express").Router();
 let Product = require("../db/product");
+let Orders = require("../db/order-db");
+let uuidv4 = require("uuid/v4");
+router.get("/product/checkout/product-purchased",async function(req,res){
+   if(req.user){
+     let order;
+     try{
+       order = new Orders(
+          {user:req.user.id,
+           transaction_id:uuidv4(),
+           quantity:res.locals.cartcounter,
+           cart:req.session.cart
+          }
+       );
+       await order.save();
+       res.send("<h1>successfull transaction</h1>")
+     }catch(err){
+       console.dir(err)
+      res.send(err.error)
+     }
+    
+   }
+});
 router.get("/product/checkout-page/clear-cart",function(req,res){
      let cart = req.session.cart;
      for(let data in cart){
@@ -38,8 +60,9 @@ router.get("/product/checkout-page/sub/:id",function(req,res){
 router.get("/product/checkout-page",function(req,res){
   let cart = req.session.cart;
   if(!cart){
-  return res.send("you have nothing in your cart");
-  }else{
+ // return res.send("you have nothing in your cart");
+  }
+  
   let cartviewer = {item:[],totalprice:0,totalquantity:0};
   for(let data in cart){
     console.dir(data);
@@ -48,7 +71,7 @@ router.get("/product/checkout-page",function(req,res){
     cartviewer.totalquantity += cart[data].quantity;
   }
   res.render("cart-product-checkout",{cartviewer:cartviewer.item,totalprice:cartviewer.totalprice,totalquantity:cartviewer.totalquantity});
-}
+
 })
 router.get("/product/:id",async (req,res)=>{
   try{

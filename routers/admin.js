@@ -3,6 +3,8 @@ let Product = require("../db/product");
 let multer = require("multer");
 let fs = require("fs-extra");
 let cat = require("../db/category");
+let authenthicate = require("../authenthication");
+let User = require("../db/user-db");
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'upload/')
@@ -14,13 +16,13 @@ var storage = multer.diskStorage({
    
   var upload = multer({ storage: storage })
 //the add-product router on get request
-router.get("/add-product",async (req,res)=>{
+router.get("/add-product",authenthicate("admin"),async (req,res)=>{
     let data= await cat.find({}).select("name -_id").exec();
        res.render("add-product",{title:"add product",categories:data,message:req.flash("success")});
 })
 //end of the add-product rout on get request
 //the post add-product rout 
-router.post("/add-product",upload.single("image"),async (req,res)=>{
+router.post("/add-product",upload.single("image"),authenthicate("admin"),async (req,res)=>{
   let product = new Product(
     {name:req.body.name,
     category:req.body.category,
@@ -46,7 +48,7 @@ try{
 })
 //end of the post add-product routh
 //the product rout 
-router.get("/product",async (req,res)=>{
+router.get("/product",authenthicate("admin"),async (req,res)=>{
   try{
     let product = await Product.find({});
     console.log(product);
@@ -61,7 +63,7 @@ router.get("/product",async (req,res)=>{
 })
 //end of the product routh
 //the delete-product router on get request
-router.get("/delete-product/:id",async (req,res)=>{
+router.get("/delete-product/:id",authenthicate("admin"),async (req,res)=>{
   try{
     await Product.findByIdAndRemove(req.params.id);
     await fs.remove("public/images/"+req.params.id)
@@ -75,7 +77,7 @@ router.get("/delete-product/:id",async (req,res)=>{
 //end of the delete-product rout on get request
 
  //start of the get edit product routh
- router.get("/edit-product/:id",async (req,res)=>{
+ router.get("/edit-product/:id",authenthicate("admin"),async (req,res)=>{
   try{
       let product =  await Product.findById(req.params.id);
       let categories= await cat.find({}).select("name -_id").exec();
@@ -87,7 +89,7 @@ router.get("/delete-product/:id",async (req,res)=>{
 })
  //#end of the edit product routh
  //start of the post edit product routh
-router.post("/edit-product/:id",upload.single("image"),async (req,res)=>{
+router.post("/edit-product/:id",upload.single("image"),authenthicate("admin"),async (req,res)=>{
   try{
       let name=req.body.name;
       let category=req.body.category;
@@ -133,4 +135,20 @@ router.post("/edit-product/:id",upload.single("image"),async (req,res)=>{
   }*/   
 });
  //#end of the post edit product routh
+ //start of the get make user admin route
+ router.get("/make-user-admin",authenthicate("admin"),async(req,res)=>{
+    res.render("make-user-admin");
+ })
+ //end of the get make user admin route
+ //start of thepost  make user admin route
+ router.post("/make-user-admin",authenthicate("admin"),async(req,res)=>{
+    try{
+        let data = await User.findOneAndUpdate({name:req.body.name},{role:"admin"});
+        console.log(data);
+        console.log("user has been made an admin");
+    }catch(err){
+      res.send("an error was found in "+req.url);
+    }
+ });
+ //end of the make user admin route
 module.exports = router;

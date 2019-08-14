@@ -25,6 +25,7 @@ let mongoose = require("mongoose");
  mongoose.connection.on("close",()=>{
      console.log("connection was closed");
  })
+ mongoose.Promise = global.Promise;
 //#ending of setting up the mongoose database
 //setting up the view engine
 app.engine(".hbs",hbs.engine);

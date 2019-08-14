@@ -1,7 +1,76 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <h1>this is the Dashboard</h1>
+        {{>header2}}
+    </div>
+    <div class="row registration-height">
+        <div class="col-md-8 col-md-offset-2 bg-danger">
+            <h1>Your  Dashboard</h1>
         </div>
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2"style="margin-top:10px;">
+            <div class="row">
+                <div class="col-sm-4" style="padding-left:0;padding-right:0;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Account Settings</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p><a href="#" style="color:black;">Edit Profile</a></p>
+                            <p><a href="#" style="color:black;">Change Password</a></p>
+                            <p><a href="#" style="color:black;">Change Profile Picture</a></p>
+                            <p><a href="#" style="color:black;">Delete Account</a></p>
+                         </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-8" style="background-color:purple;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><b>Orders</b></h3>
+                        </div>
+                        <div class="panel-body">
+                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>Finished Orders</b></a>
+                            <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>Cancelled Orders</b></a>
+                            <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>Pending Orders</b></a>
+                            
+                         </div>
+                    </div>
+                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><b>Investment Packages</b></h3>
+                        </div>
+                        <div class="panel-body">
+                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>&#x20a6;5000</b></a>
+                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>&#x20a6;10000</b></a>
+                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>&#x20a6;20000</b></a>
+                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>&#x20a6;50000</b></a>
+                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>&#x20a6;100000</b></a>
+                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>&#x20a6;500000</b></a>
+                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>&#x20a6;700000</b></a>
+                         </div>
+                    </div>
+                    {{#if admin}}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Admin</h3>
+                        </div>
+                        <div class="panel-body">
+                             <a href="/admin/make-user-admin" style="color:black;"class="btn btn-default btn-sm"><b>Make User Admin</b></a>
+                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>Delete User</b></a>                    
+                            <a href="/admin/product" style="color:black;"class="btn btn-default btn-sm"><b>Products</b></a>
+                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>Categories</b></a>
+                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>Orders</b></a>
+                        </div>
+                    </div>
+                {{/if}}
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="row bg-primary">
+        <div class="col-xs-12 col-md-12">
+            {{>footer}}
+        </div>
+        
     </div>
 </div>

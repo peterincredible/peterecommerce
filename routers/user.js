@@ -59,8 +59,17 @@ router.get("/signout",(req,res)=>{
 })
 //end of the get signut route
 //workin on the user dashboard
-router.get("/dashboard",authenthicate("user"),(req,res)=>{
-     res.render("dashboard");
+router.get("/dashboard",authenthicate("user"),async(req,res)=>{
+   try{
+     console.log(req.user.role);
+      if(req.user.role == "admin"){
+        res.locals.admin = "admin";
+      }
+    res.render("dashboard");
+   }catch(err){
+     res.send("<h1>there was an error in the dashboard /dashboard");
+   }
+    
 })
 //end of the dashboard route
 module.exports = router;

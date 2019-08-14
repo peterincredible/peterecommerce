@@ -1,19 +1,26 @@
 let mongoose = require("mongoose");
 let schema = mongoose.Schema;
 let tempschema = new schema({
-    product:{
-        type:schema.Types.ObjectId,
-        ref:"product"
-    },
+   
     user:{
-        type:schema.Types.objectid,
+        type:schema.Types.ObjectId,
         ref:"user"
     },
     quantity:{
         type:Number,
         default:1
+    },
+    transaction_id:{
+        type:String
+    },
+    cart:{
+        type:Object
+    },
+    process:{
+        type:String,
+        default:"in progress"
     }
 });
 
-let category = mongoose.model("orders",tempschema);
-module.exports = category;
+let orders = mongoose.model("orders",tempschema);
+module.exports = orders;
