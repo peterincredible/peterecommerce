@@ -143,12 +143,27 @@ router.post("/edit-product/:id",upload.single("image"),authenthicate("admin"),as
  //start of thepost  make user admin route
  router.post("/make-user-admin",authenthicate("admin"),async(req,res)=>{
     try{
-        let data = await User.findOneAndUpdate({name:req.body.name},{role:"admin"});
+       // let data = await User.findOneAndUpdate({name:req.body.name},{role:"admin"});
+       let data = await User.findOne({username:req.body.username});
         console.log(data);
-        console.log("user has been made an admin");
+     
+        res.send(data);
+
     }catch(err){
       res.send("an error was found in "+req.url);
     }
  });
  //end of the make user admin route
+ //start of making make-user-admin add user post route
+ router.post("/make-user-admin/add-user",authenthicate("admin"),async(req,res)=>{
+    try{
+      let data = await User.findOneAndUpdate({username:req.body.username},{role:"admin"},{new:true});
+        console.log(data);
+        res.send("user successfully made an admin");
+    }catch(err){
+      res.send("could not make user admin")
+    }
+  
+ })
+ //end of making make-user-admin add user post route
 module.exports = router;

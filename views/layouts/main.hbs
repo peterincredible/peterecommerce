@@ -14,11 +14,11 @@
 <body>
      {{{body}}}
          <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-    
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
   
    
     <script>
+        //start working with the sidebar javacript thing
          $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
@@ -27,6 +27,7 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+    //end of the sidebar javascript thing
 
     $("#myfile").change(function(e){
         console.dir(e.target.files[0].name);
@@ -59,7 +60,49 @@
         if($("#password").val() != $("#confirm-password").val()){
             return false;
         }
-    })
+    });
+    //start working with the make user grabber
+      $("#makeuser").submit(function(){
+          $.ajax({
+              method:"POST",
+              url:"/admin/make-user-admin",
+              data:{username:$("#makeuser-username").val()},
+              success:function(data){
+                  console.log(data);
+                  $("#user-grabber").html(`<h3>User Profile</h3><table class='table '>
+                      <tr><td><b>Username</b></td><td id='data-username'>${data.username}</td></tr>
+                      <tr><td><b>Role</b></td><td>${data.role}</td></tr>
+                      <tr><td><button id='add-admin' class='btn btn-primary'>make Admin</button></td></tr>
+                  </table>`);
+                   $("#add-admin").on("click",function(){
+         console.log("button clicked");
+         $.ajax({
+             method:"POST",
+             url:"/admin/make-user-admin/add-user",
+             data:{username:$('#data-username').html()},
+             success:function(data){
+                 $("#user-grabber").html(`<h3>${$('#data-username').text()} is now an Admin</h3>`)
+             }
+         })
+     });
+              }});
+          return false;
+    });
+    //end of working with the make user grabber
+    //start working with the make admin button 
+     $("#add-admin").on("click",function(){
+         console.log("button clicked");
+         $.ajax({
+             method:"POST",
+             url:"/admin/make-user-admin/add-user",
+             data:{username:$('#data-username').html()},
+             success:function(data){
+                 $("#user-grabber").html(`<h3>${$('#data-username').text()} is now an Admin</h3>`)
+             }
+         })
+     });
+    //end of the working with the make admin button
+
 
     </script>
 </body>
