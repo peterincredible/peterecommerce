@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+                 {{>header2}}
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-sm-6 col-sm-offset-3 registration-height">
+            <h1>this is the body hurray</h1>
+            <p><a class="btn btn-primary" href="/user/dashboard">Back to Dashboard</a></p>
+        <form action="/admin/delete-user" method="POST" id="delete-user-form">
+            <div class="form-group">
+                <label class="control-label">Input userName</label>
+                <div class="form-input">
+                    <input class="form-control" type="input" id="delete-username" name="name"/>
+                </div>
+            </div>
+            <div class="form-group">
+                 <div class="form-input">
+                    <input class="btn btn-primary" type="submit"/>
+                </div>
+            </div>
+        </form>
+        <div id="delete-grabber">
+        </div>
+        </div>
+    </div>
+    <div class="row bg-primary">
+        <div class="col-sm-12 ">
+            {{>footer}}
+        </div>
+    </div>
+
+</div>

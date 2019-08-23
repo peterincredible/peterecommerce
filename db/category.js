@@ -8,4 +8,5 @@ let tempschema = new schema({
 });
 
 let category = mongoose.model("category",tempschema);
+
 module.exports = category;

@@ -102,6 +102,37 @@
          })
      });
     //end of the working with the make admin button
+    
+
+    //start working with the delete user
+    $("#delete-user-form").submit(function(){
+        $.ajax({
+            method:"POST",
+            url:"/admin/delete-user",
+            data:{username:$("#delete-username").val()},
+            success:function(data){
+                console.log(data);
+               $("#delete-grabber").html(`<h3>User Profile</h3><table class='table '>
+                      <tr><td><b>Username</b></td><td id='data-username'>${data.username}</td></tr>
+                      <tr><td><b>Role</b></td><td>${data.role}</td></tr>
+                      <tr><td><button id='delete-admin-btn' class='btn btn-primary'>Delete User</button></td></tr>
+                  </table>`);
+                 $("#delete-admin-btn").on("click",function(){
+                                             console.log("button clicked");
+                                    $.ajax({
+                                             method:"POST",
+                                             url:"/admin/delete-user/delete",
+                                             data:{username:$('#data-username').text()},
+                                             success:function(data){
+                                                     $("#delete-grabber").html(`<h3>${$('#data-username').text()} account is successfully deleted</h3>`)
+                                                                 }
+                                            })
+                                    });
+
+            }
+        })
+        return false;
+    });
 
 
     </script>

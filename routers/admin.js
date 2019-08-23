@@ -5,6 +5,7 @@ let fs = require("fs-extra");
 let cat = require("../db/category");
 let authenthicate = require("../authenthication");
 let User = require("../db/user-db");
+let Orders = require("../db/order-db");
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'upload/')
@@ -65,8 +66,9 @@ router.get("/product",authenthicate("admin"),async (req,res)=>{
 //the delete-product router on get request
 router.get("/delete-product/:id",authenthicate("admin"),async (req,res)=>{
   try{
-    await Product.findByIdAndRemove(req.params.id);
-    await fs.remove("public/images/"+req.params.id)
+    await Product.findByIdAndRemove(req.params.id);//find and remove the product from the mongodb database
+    await fs.remove("public/images/"+req.params.id)//find and remove the just deleted product product image from the server
+    await Orders.findOne({})
     req.flash("success","product successfully deleted");
     res.redirect("/admin/product");
   }catch(e){
@@ -166,4 +168,36 @@ router.post("/edit-product/:id",upload.single("image"),authenthicate("admin"),as
   
  })
  //end of making make-user-admin add user post route
+ //the start of the delete user router
+ router.get("/delete-user",authenthicate('admin'),async (req,res)=>{
+           res.render("delete-user");
+ });
+ //the end of the get delete user router
+ //the start of the post delete user router
+ router.post("/delete-user",authenthicate('admin'),async (req,res)=>{
+  try{
+    let data = await User.findOne({username:req.body.username});
+     console.log(data);
+  
+     res.send(data);
+
+ }catch(err){
+   res.send("an error was found in "+req.url);
+ }
+})
+//the end of the post delete user router
+//the start of the post delete-user/delete
+router.post("/delete-user/delete",authenthicate("admin"),async(req,res)=>{
+  try{
+    let data = await User.findOneAndRemove({username:req.body.username});
+    
+    await Orders.deleteMany({user:data._id}).exec();
+      res.send("user successfully deleted");
+  }catch(err){
+    res.send("could not delete user")
+  }
+
+})
+//the end of the post delete-user/delete
+
 module.exports = router;

@@ -59,6 +59,7 @@ a:hover{
     padding-left: 0;
     padding-top:0;
     padding-right:0;
+    padding-bottom:0;
 }
 .fullheight{
     height:100%;
@@ -73,7 +74,8 @@ a:hover{
     min-height:575px;
 }
 .home-height{
-    min-height:575px;
+    min-height: 100%;
+    position: relative;
 }
 .thumbnail{
     height:30%;
@@ -85,6 +87,11 @@ a:hover{
 .registration-height{
     min-height:575px;
 }
+.bottom{
+    position:absolute;
+    bottom:0px;
+    right:0px;
+}
 .vcenter{
     vertical-align: middle;
 }
@@ -92,9 +99,6 @@ a:hover{
 @media(max-width:770px){
     .product-height{
         min-height:570px;
-    }
-    .home-height{
-        min-height:585px;
     }
     .edit-product-height{
         min-height:585px;
