@@ -18,7 +18,8 @@ let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
 }});
 let app = express();
 let mongoose = require("mongoose");
- mongoose.connect("mongodb://localhost/peterecommerce");
+ //mongoose.connect("mongodb://localhost/peterecommerce");
+ mongoose.connect("mongodb://peterincredible:omolola3@ds139979.mlab.com:39979/heroku_z4d509bt")
  mongoose.connection.once("open",()=>{
      console.log("successfully connected to the database");
  });
