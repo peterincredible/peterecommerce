@@ -53,7 +53,7 @@ app.use(passport.session());
 //setting up the mongoose database
  
 
-let port = process.env.port || 3000;
+let port = process.env.PORT || 3000;
 app.use(express.static(`public`));
 app.use("/admin",express.static("public"));
 app.use("/admin/add-product",express.static("public"));
