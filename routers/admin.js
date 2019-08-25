@@ -199,5 +199,23 @@ router.post("/delete-user/delete",authenthicate("admin"),async(req,res)=>{
 
 })
 //the end of the post delete-user/delete
+//start working on the get add categories route
+  router.get("/category",authenthicate("admin"),async(req,res)=>{
+      res.render("category");
+  });
+//end of working with the get add categories route
+
+//start working witht post add categories route
+router.post("/add-category",authenthicate("admin"),async(req,res)=>{
+    try{
+      console.log(req.body);
+        let category = new cat(req.body);
+        await category.save();
+        res.send("category successfully saved");
+    }catch(err){
+      res.send("and error occured in adding category")
+    }
+});
+//end of working with the post add categories route
 
 module.exports = router;
