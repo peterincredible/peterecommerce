@@ -199,11 +199,20 @@ router.post("/delete-user/delete",authenthicate("admin"),async(req,res)=>{
 
 })
 //the end of the post delete-user/delete
-//start working on the get add categories route
+//start working on the get categories route
   router.get("/category",authenthicate("admin"),async(req,res)=>{
+      let mycat =  await cat.find({})
+      res.locals.mycat = mycat;
       res.render("category");
   });
-//end of working with the get add categories route
+//end of working with the getcategories route
+
+//code for the get add-category route
+router.get("/add-category",authenthicate("admin"),async(req,res)=>{
+  res.render("add-category");
+});
+
+//code block for the end of the get add-category route
 
 //start working witht post add categories route
 router.post("/add-category",authenthicate("admin"),async(req,res)=>{
@@ -211,11 +220,54 @@ router.post("/add-category",authenthicate("admin"),async(req,res)=>{
       console.log(req.body);
         let category = new cat(req.body);
         await category.save();
-        res.send("category successfully saved");
+        res.redirect("/admin/category");
     }catch(err){
       res.send("and error occured in adding category")
     }
 });
 //end of working with the post add categories route
+
+//start working with the delete category route
+router.get("/delete-category/:id",authenthicate("admin"),async(req,res)=>{
+ 
+  try{
+       await cat.findByIdAndDelete(req.params.id);
+
+        res.redirect("/admin/category");
+     
+  }catch(err){
+     console.log("and error occured in the delete-category route")
+}
+});
+//end of working witht he delete category route
+
+//start working on the get edit category route
+router.get("/edit-category/:id",authenthicate("admin"),async(req,res)=>{
+ 
+  try{
+       let category = await cat.findById(req.params.id);
+
+        res.render("edit-category",{category});
+     
+  }catch(err){
+     console.log("and error occured in the delete-category route")
+}
+});
+
+//end of working on the get edit category route
+
+//start working on the post edit category route
+router.post("/edit-category/:id",authenthicate("admin"),async(req,res)=>{
+       
+  try{
+       await cat.findByIdAndUpdate(req.params.id,req.body);
+        res.redirect("/admin/category");
+     
+  }catch(err){
+     console.log("and error occured in the delete-category route")
+}
+});
+
+//end working on the edit category route
 
 module.exports = router;

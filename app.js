@@ -18,8 +18,13 @@ let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
 }});
 let app = express();
 let mongoose = require("mongoose");
- //mongoose.connect("mongodb://localhost/peterecommerce");
- mongoose.connect("mongodb://peterincredible:omolola3@ds139979.mlab.com:39979/heroku_z4d509bt")
+
+  if(process.env.PORT){
+    mongoose.connect("mongodb://peterincredible:omolola3@ds139979.mlab.com:39979/heroku_z4d509bt")
+  }else{
+         mongoose.connect("mongodb://localhost/peterecommerce");
+  }
+ 
  mongoose.connection.once("open",()=>{
      console.log("successfully connected to the database");
  });
@@ -64,6 +69,7 @@ app.use(function(req,res,next){
     res.locals.error = req.flash("error");
     res.locals.success = req.flash("success");
     res.locals.user = req.user;
+   // res.locals.mycat = req.session.mycat;
     res.locals.cartcounter = req.session.cartcounter;
     
     next();
