@@ -38,12 +38,12 @@
                 <div class="row" style="margin-left:0px;margin-right:0px;">{{>header}} </div>
                 <div class="row "style="margin-left:0px;margin-right:0px;">
                     {{#each product}}
-                        <div class="col-sm-6 col-md-4">
+                        <div class="col-sm-6 col-md-4" >
                             <div class="thumbnail">
-                                <img src="/images/{{_id}}/{{image}}" alt="no image">
+                                <img src="/images/{{_id}}/{{image}}" alt="no image" >
                                 <div class="caption">
                                     <h3>{{name}}</h3>
-                                    <p>{{description}}</p>
+                                    <p>{{trunc description}}</p>
                                     <p><a href="/cart/product/{{_id}}" class="btn btn-primary" role="button">Buy</a><span class="pull-right">{{price}}</span></p>
                                 </div>
                             </div>

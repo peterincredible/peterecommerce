@@ -19,6 +19,10 @@ let tempschema = new schema({
     process:{
         type:String,
         default:"in progress"
+    },
+    time:{
+        type:String,
+        required:true
     }
 });
 

@@ -14,6 +14,9 @@ let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
     },
     add:function(val1,val2){
         return val1 *  val2;
+    },
+    trunc:function(str){
+         return (str.length > 40)? str.substring(0,32) + "...": str;
     }
 }});
 let app = express();

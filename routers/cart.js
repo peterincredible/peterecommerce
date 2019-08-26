@@ -2,6 +2,7 @@ let router = require("express").Router();
 let Product = require("../db/product");
 let Orders = require("../db/order-db");
 let uuidv4 = require("uuid/v4");
+let moment = require("moment");
 router.get("/product/checkout/product-purchased",async function(req,res){
    if(req.user){
      let order;
@@ -10,7 +11,8 @@ router.get("/product/checkout/product-purchased",async function(req,res){
           {user:req.user.id,
            transaction_id:uuidv4(),
            quantity:res.locals.cartcounter,
-           cart:req.session.cart
+           cart:req.session.cart,
+           time:moment().format("ll")
           }
        );
        await order.save();
