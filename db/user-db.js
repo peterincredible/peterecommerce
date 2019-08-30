@@ -37,6 +37,5 @@ next();
 tempschema.methods.validPassword = function(password){
  return bcrypt.compareSync(password,this.password);
 }
-
 let category = mongoose.model("user",tempschema);
 module.exports = category;

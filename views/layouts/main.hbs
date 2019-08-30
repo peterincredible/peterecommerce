@@ -133,7 +133,22 @@
         })
         return false;
     });
-
+   let pwdchecker=function (e){
+      // e.preventDefault();
+        let newpwd = document.getElementById("newpwd");
+        let confirmpwd = document.getElementById("confirmpwd");
+        console.log(newpwd,confirmpwd);
+        if(newpwd.value != confirmpwd.value){
+             let errdiv = document.getElementById("error");
+               errdiv.innerText = "sorrow new password dosnt correspond with the confirm password";
+                 setTimeout(function(){
+                        errdiv.innerText="";
+                 },3000);
+                return false;
+        }
+        return true;
+         
+        };
 
     </script>
 </body>

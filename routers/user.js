@@ -65,11 +65,84 @@ router.get("/dashboard",authenthicate("user"),async(req,res)=>{
       if(req.user.role == "admin"){
         res.locals.admin = "admin";
       }
-    res.render("dashboard");
+    res.render("dashboard",{user:req.user});
    }catch(err){
      res.send("<h1>there was an error in the dashboard /dashboard");
    }
     
 })
 //end of the dashboard route
+
+//start of the get change password route
+router.get("/change-password",authenthicate("user"),async(req,res)=>{
+    res.render("change-password");
+});
+
+//end of the get chane password route
+
+//start of the post change password route
+router.post("/change-password",authenthicate("user"),async(req,res)=>{
+  try{
+//confirm if the user is really who he or she says they are by confirming if the current passwrd is
+// the same with the one on the database
+
+  let dbuser = await User.findById(req.user._id);
+    if(!dbuser.validPassword(req.body.prevpwd)){
+       // return res.send("you an an impersonator")
+    }
+    //compare the new password hash with the old passwrd
+    if(!dbuser.validPassword(req.body.newpwd)) {
+      //if they are not the same password you save passwrd as the new passwrod and send a res that password change successfull
+      dbuser.password = req.body.newpwd;
+      await dbuser.save();
+     // return res.redirect("/user/dashboard");
+    }
+  //if they are the same you send a res to the user that u cant put the new passwrd as same as old password
+   return res.send("new password is the same as old password cant be accept change password")
+  }catch(err){
+      res.send("just hold on something is wrong with the database");
+  }
+
+})
+//end of the post change password route
+//start of the get delete Account route
+router.get("/delete-account/:id",authenthicate("user"),async(req,res)=>{
+    //get the user from the database based on the id and delete it 
+    try{
+    //redirect the page back to the home page
+      await User.findByIdAndDelete(req.params.id)
+      console.log("delete account triggered dddddddd");
+      res.redirect("/");
+    }catch(error){
+     //if there is an error send it back
+     res.send("an error occured in the delete account ");
+    }
+
+    
+});
+//end of the get delete account route
+
+//start of the get edit profile account
+router.get("/edit-profile/:id",authenthicate("user"),async(req,res)=>{
+  try{
+    let data = await User.findById(req.params.id);
+      res.render("edit-profile",{user:data});
+  }catch(err){
+      res.send("an error occured cant view edit-profile page check the database if there was an error")
+  }
+});
+//end of the get edit profile account
+
+//start of the post edit profile account
+router.post("/edit-profile/:id",authenthicate("user"),async(req,res)=>{
+   try{
+        await User.findByIdAndUpdate(req.params.id,req.body).exec();
+        console.log("successfully update the userf profile")
+        res.redirect("/user/dashboard");
+   }catch(err){
+          console.log("an error occured in the edit profile route");
+          res.send("an error occured in the edit profile route");
+   }
+});
+//end of the post edit profile account
 module.exports = router;

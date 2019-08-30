@@ -1,9 +1,9 @@
 <div class="container-fluid home-height" style="padding:0px;">
-    <div class="row">
+    <div class="row" style="margin-left:0px;margin-right:0px;">
         {{>header2}}
     </div>
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2 bg-danger">
+    <div class="row" style="margin-left:0px;margin-right:0px;">
+        <div class="col-md-8 col-md-offset-2">
             <h1>Your  Dashboard</h1>
         </div>
         <div class="col-xs-12 col-sm-8 col-sm-offset-2"style="margin-top:10px;">
@@ -14,15 +14,40 @@
                             <h3 class="panel-title">Account Settings</h3>
                         </div>
                         <div class="panel-body">
-                            <p><a href="#" style="color:black;">Edit Profile</a></p>
-                            <p><a href="#" style="color:black;">Change Password</a></p>
+                            <p><a href="/user/edit-profile/{{user._id}}" style="color:black;">Edit Profile</a></p>
+                            <p><a href="/user/change-password" style="color:black;">Change Password</a></p>
                             <p><a href="#" style="color:black;">Change Profile Picture</a></p>
-                            <p><a href="#" style="color:black;">Delete Account</a></p>
+                            <p><a href="#" style="color:black;"data-toggle="modal" data-target="#flipFlop">Delete Account</a></p>
                          </div>
                     </div>
+                    <!--just testing modal-->
+                        <!-- The modal -->
+                    <div class="modal fade" id="flipFlop" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title" id="modalLabel">Account</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <h3><b>Are you sure you want to delete your account?</b></h3>
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="btn btn-danger btn-lg" href="/user/delete-account/{{user._id}}">Yes</a>
+                                    <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">No</button>
+                                    
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--end of testing modal-->
 
                 </div>
-                <div class="col-sm-8" style="background-color:purple;">
+                <div class="col-sm-8" >
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title"><b>Orders</b></h3>
