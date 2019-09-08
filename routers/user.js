@@ -1,6 +1,7 @@
 let router = require("express").Router();
 let Product = require("../db/product");
 let User = require("../db/user-db");
+let Orders = require("../db/order-db");
 let passport = require("../mypassport");
 let authenthicate = require("../authenthication");
 var csrf = require('csurf');
@@ -65,9 +66,19 @@ router.get("/dashboard",authenthicate("user"),async(req,res)=>{
       if(req.user.role == "admin"){
         res.locals.admin = "admin";
       }
-    res.render("dashboard",{user:req.user});
+      let data = await Orders.find({user:req.user._id});
+      let order_finished = data.filter((order)=>{
+        return order.process =="finished";
+  }).length
+      let order_cancelled = data.filter((order)=>{
+        return order.process =="cancelled";
+  }).length
+      let order_inprogress = data.filter((order)=>{
+            return order.process =="in progress";
+      }).length
+    res.render("dashboard",{user:req.user,order_inprogress,order_cancelled,order_finished});
    }catch(err){
-     res.send("<h1>there was an error in the dashboard /dashboard");
+     res.send("<h1>there was an error in the dashboard /dashboard</h1>");
    }
     
 })

@@ -2,6 +2,7 @@ let express = require("express");
 let exphbs = require("express-handlebars");
 let Product = require("./db/product");
 let passport = require("./mypassport");
+let orderrouter = require("./routers/order");
 let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
     compare:function(val1,val2,options){
         if(val1 == val2){
@@ -100,6 +101,7 @@ let cartrouter = require("./routers/cart");
 app.use("/admin",adminrouter);
 app.use("/user",user);
 app.use("/cart",cartrouter);
+app.use("/user",orderrouter);
 //#end of getting the various routers
 app.listen(port,()=>{
     console.log("server is listening to port 3000"+__dirname);

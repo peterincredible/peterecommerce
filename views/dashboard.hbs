@@ -1,4 +1,4 @@
-<div class="container-fluid home-height" style="padding:0px;">
+<div class="container-fluid home-height" style="padding:0px;overflow:auto;" >
     <div class="row" style="margin-left:0px;margin-right:0px;">
         {{>header2}}
     </div>
@@ -53,9 +53,21 @@
                             <h3 class="panel-title"><b>Orders</b></h3>
                         </div>
                         <div class="panel-body">
-                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>Finished Orders</b></a>
-                            <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>Cancelled Orders</b></a>
-                            <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>Pending Orders</b></a>
+                             {{#if order_finished}}
+                                 <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>Finished Orders ({{order_finished}})</b></a>
+                            {{else}}
+                                <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>FinishedOrders (0)</b></a>
+                            {{/if}}
+                             {{#if order_cancelled}}
+                                 <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>Cancelled Orders ({{order_cancelled}})</b></a>
+                            {{else}}
+                                <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>cancelled Orders (0)</b></a>
+                            {{/if}}
+                            {{#if order_inprogress}}
+                                 <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>Pending Orders ({{order_inprogress}})</b></a>
+                            {{else}}
+                                <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>Pending Orders (0)</b></a>
+                            {{/if}}
                             
                          </div>
                     </div>
@@ -83,7 +95,7 @@
                             <a href="/admin/delete-user" style="color:black;"class="btn btn-default btn-sm"><b>Delete User</b></a>                    
                             <a href="/admin/product" style="color:black;"class="btn btn-default btn-sm"><b>Products</b></a>
                             <a href="/admin/category" style="color:black;"class="btn btn-default btn-sm"><b>Categories</b></a>
-                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>Orders</b></a>
+                            <a href="/user/orders/{{user._id}}" style="color:black;"class="btn btn-default btn-sm"><b>Orders</b></a>
                         </div>
                     </div>
                 {{/if}}
