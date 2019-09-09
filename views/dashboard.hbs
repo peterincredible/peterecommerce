@@ -1,4 +1,4 @@
-<div class="container-fluid home-height" style="padding:0px;overflow:auto;" >
+<div class="container-fluid home-height" style="padding:0px;">
     <div class="row" style="margin-left:0px;margin-right:0px;">
         {{>header2}}
     </div>
@@ -59,12 +59,12 @@
                                 <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>FinishedOrders (0)</b></a>
                             {{/if}}
                              {{#if order_cancelled}}
-                                 <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>Cancelled Orders ({{order_cancelled}})</b></a>
+                                 <a href="/user/orders/cancelled_orders" style="color:black;" class="btn btn-default btn-sm"><b>Cancelled Orders ({{order_cancelled}})</b></a>
                             {{else}}
                                 <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>cancelled Orders (0)</b></a>
                             {{/if}}
                             {{#if order_inprogress}}
-                                 <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>Pending Orders ({{order_inprogress}})</b></a>
+                                 <a href="/user/orders/pending_orders" style="color:black;" class="btn btn-default btn-sm"><b>Pending Orders ({{order_inprogress}})</b></a>
                             {{else}}
                                 <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>Pending Orders (0)</b></a>
                             {{/if}}
