@@ -10,8 +10,8 @@
             {{#if totalorders}}
                 {{#each totalorders}}
                      <div class="list-group" style="margin-bottom:0px;">
-                         <div class="list-group-item">
-                                <h5>Order id: {{transanction_id}}</h5>
+                         <div class="list-group-item" style="margin-bottom:8px;">
+                                <p><span style="margin-left:35px;"><b>Order id: {{transanction_id}}</b><span></p>
                                 <div>
                                     <table class="table text-center">
                                         <thead>
@@ -21,17 +21,18 @@
                                                 <th class="text-center"> price</th>
                                                 <th class="text-center">quantity</th>
                                                 <th class="text-center">Total Price</th>
-                                                <th class="text-center">Action</th>
+                                                <th class="text-center">{{{cancel_orders process}}}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {{#each cart}}
                                                 <tr>
                                                     <td>{{name}}</td>
-                                                    <td>{{image}}</td>
+                                                    <td><img src="/images/{{id}}/{{image}}" style="width:50px;height:50px;" alt="no image"/></td>
                                                     <td>{{price}}</td>
                                                     <td>{{quantity}}</td>
                                                     <td>{{totalprice}}</td>
+                                                    
                                                 </tr>
                                             {{/each}}
                                         </tbody>
