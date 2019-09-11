@@ -11,7 +11,11 @@
                 {{#each totalorders}}
                      <div class="list-group" style="margin-bottom:0px;">
                          <div class="list-group-item" style="margin-bottom:8px;">
-                                <div><span style="margin-left:35px;" class="push-left"><b>Order id: {{transanction_id}}</b></span>{{{cancel_orders process}}}</div>
+                             <div class="col-xs-12">
+                                    <div class="col-xs-6"><span style="margin-left:35px;"><b>Order id: {{transanction_id}}</b></span></div>
+                                     <div class="col-xs-6 text-right">{{{cancel_orders process _id}}}</div>
+                             </div>
+                                
                                 <div>
                                     <table class="table text-center">
                                         <thead>

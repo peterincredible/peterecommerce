@@ -53,22 +53,9 @@
                             <h3 class="panel-title"><b>Orders</b></h3>
                         </div>
                         <div class="panel-body">
-                             {{#if order_finished}}
-                                 <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>Finished Orders ({{order_finished}})</b></a>
-                            {{else}}
-                                <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>FinishedOrders (0)</b></a>
-                            {{/if}}
-                             {{#if order_cancelled}}
+                                 <a href="/user/orders/finished_orders" style="color:black;" class="btn btn-default btn-sm"><b>Finished Orders ({{order_finished}})</b></a>
                                  <a href="/user/orders/cancelled_orders" style="color:black;" class="btn btn-default btn-sm"><b>Cancelled Orders ({{order_cancelled}})</b></a>
-                            {{else}}
-                                <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>cancelled Orders (0)</b></a>
-                            {{/if}}
-                            {{#if order_inprogress}}
-                                 <a href="/user/orders/pending_orders" style="color:black;" class="btn btn-default btn-sm"><b>Pending Orders ({{order_inprogress}})</b></a>
-                            {{else}}
-                                <a href="#" style="color:black;" class="btn btn-default btn-sm"><b>Pending Orders (0)</b></a>
-                            {{/if}}
-                            
+                                 <a href="/user/orders/pending_orders" style="color:black;" class="btn btn-default btn-sm"><b>Pending Orders ({{order_inprogress}})</b></a> 
                          </div>
                     </div>
                      <div class="panel panel-default">
@@ -95,7 +82,7 @@
                             <a href="/admin/delete-user" style="color:black;"class="btn btn-default btn-sm"><b>Delete User</b></a>                    
                             <a href="/admin/product" style="color:black;"class="btn btn-default btn-sm"><b>Products</b></a>
                             <a href="/admin/category" style="color:black;"class="btn btn-default btn-sm"><b>Categories</b></a>
-                            <a href="/user/orders/{{user._id}}" style="color:black;"class="btn btn-default btn-sm"><b>Orders</b></a>
+                            <a href="/user/orders" style="color:black;"class="btn btn-default btn-sm"><b>Orders</b></a>
                         </div>
                     </div>
                 {{/if}}

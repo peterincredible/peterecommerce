@@ -19,8 +19,9 @@ let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
     trunc:function(str){
          return (str.length > 40)? str.substring(0,32) + "...": str;
     },
-    cancel_orders:function(str){
-        return (str == "cancelled")? "": "<a href='#'class='btn btn-danger pull-right' onclick='cance_func(event)'>cancel order</a>";
+    cancel_orders:function(str,_id){
+    
+        return (str == "cancelled")? "": `<a href='/user/orders/cancel_order/${_id}' class='btn btn-danger pull-right'>cancel order</a>`;
     }
 }});
 let app = express();
