@@ -1,6 +1,7 @@
 let router = require("express").Router();
 let Product = require("../db/product");
 let User = require("../db/user-db");
+let Packages = require("../db/packages-db");
 let Orders = require("../db/order-db");
 let passport = require("../mypassport");
 let authenthicate = require("../authenthication");
@@ -62,7 +63,7 @@ router.get("/signout",(req,res)=>{
 //workin on the user dashboard
 router.get("/dashboard",authenthicate("user"),async(req,res)=>{
    try{
-     console.log(req.user.role);
+      let packages = await Packages.find({});
       if(req.user.role == "admin"){
         res.locals.admin = "admin";
       }
@@ -76,7 +77,7 @@ router.get("/dashboard",authenthicate("user"),async(req,res)=>{
       let order_inprogress = data.filter((order)=>{
             return order.process =="in progress";
       }).length
-    res.render("dashboard",{user:req.user,order_inprogress,order_cancelled,order_finished});
+    res.render("dashboard",{user:req.user,order_inprogress,order_cancelled,order_finished,packages});
    }catch(err){
      res.send("<h1>there was an error in the dashboard /dashboard</h1>");
    }

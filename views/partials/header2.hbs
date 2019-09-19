@@ -14,11 +14,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/cart/product/checkout-page">
+        <li><a href="/cart/product/checkout-page"style="background-image:url('/images/iconfinder_cart4_216460.png');background-size:100% 100%; background-position:0% 0%; background-repeat:no-repeat; margin-top:9px; position:relative; display:inline-block; width:50px;">
           {{#if cartcounter}}
-               <img class="img-responsive"src="/images/iconfinder_cart4_216460.png" alt="imgage cant show"/><span class="label">{{cartcounter}}</span>
-               {{else}}
-               <img class="img-responsive"src="/images/iconfinder_cart4_216460.png" alt="imgage cant show"/>
+              <span class="badge" style="position:absolute; top:0;right:0;">{{cartcounter}}</span>
           {{/if}}
          </a></li>
         {{#if user}}

@@ -63,13 +63,13 @@
                             <h3 class="panel-title"><b>Investment Packages</b></h3>
                         </div>
                         <div class="panel-body">
-                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>&#x20a6;5000</b></a>
-                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>&#x20a6;10000</b></a>
-                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>&#x20a6;20000</b></a>
-                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>&#x20a6;50000</b></a>
-                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>&#x20a6;100000</b></a>
-                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>&#x20a6;500000</b></a>
-                            <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>&#x20a6;700000</b></a>
+                            {{#if packages}}
+                                {{#each packages}}
+                                <a href="#" style="color:black;"class="btn btn-default btn-sm"><b>&#x20a6;{{volume}}</b></a>
+                                {{/each}}
+                                {{else}}
+                                <p>no packages volume available</p>
+                            {{/if}}
                          </div>
                     </div>
                     {{#if admin}}
@@ -83,6 +83,7 @@
                             <a href="/admin/product" style="color:black;"class="btn btn-default btn-sm"><b>Products</b></a>
                             <a href="/admin/category" style="color:black;"class="btn btn-default btn-sm"><b>Categories</b></a>
                             <a href="/user/orders" style="color:black;"class="btn btn-default btn-sm"><b>Orders</b></a>
+                            <a href="/admin/packages" style="color:black; margin-top:5px;"class="btn btn-default btn-sm"><b>Packages</b></a>
                         </div>
                     </div>
                 {{/if}}

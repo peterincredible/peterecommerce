@@ -1,0 +1,52 @@
+<div class="container-fluid fullheight" style="padding-left: 0px; padding-right:0px; overflow:auto">
+    <div class="row">
+        <div class="col-md-12">
+            {{>header2}}
+        </div>
+    </div>
+    <div class="row product-height">
+        {{#if success}}
+        <div class="col-md-8 col-md-offset-2">
+            <p class="bg-primary text-center text-dark">{{success}}</p>
+        </div>
+        {{/if}}
+        <div class="col-md-8 col-md-offset-2">
+            <a class="btn btn-primary" href="/admin/add-package">Add Packages</a>
+        </div>
+        <br/>
+        <br/>
+        <div class="col-md-8 col-md-offset-2">
+            <!--<div class="table-responsive">-->
+                {{#if packages}}
+                <table class="table table-striped table-hover table-responsive">
+                    <thead>
+                         <tr>
+                             <th class="">Packages</th>
+                        </tr>
+                    </thead>     
+                     <tbody>
+                        {{#each packages}}
+                            <tr style="">
+                                <td class="">{{volume}}</td>        
+                             </tr>
+                        {{/each}}
+                     </tbody>
+                </table>
+         {{/if}}
+    {{#unless packages}}
+    <div class="col-md-6 col-md-offset-3">
+         <p class="container-fluid bg-danger text-center">No Packages available</p>
+    </div>
+    
+    {{/unless}}
+
+          <!--  </div>-->
+            
+        </div>
+    </div>
+    
+    <div class="row bg-primary text-center bottom"  style="bottom:0px; right:0px; width:100%; margin-left:0px;margin-right:0px;">
+            {{>footer}}
+    </div>
+</div>
+

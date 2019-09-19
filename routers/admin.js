@@ -1,5 +1,6 @@
 let router = require("express").Router();
 let Product = require("../db/product");
+let Packages = require("../db/packages-db");
 let multer = require("multer");
 let fs = require("fs-extra");
 let cat = require("../db/category");
@@ -269,5 +270,42 @@ router.post("/edit-category/:id",authenthicate("admin"),async(req,res)=>{
 });
 
 //end working on the edit category route
+
+//start working on the get Packages page
+router.get("/packages",authenthicate("admin"),async(req,res)=>{
+     try{
+        ///get all packages added here
+        let packages = await Packages.find({});
+        res.render("packages-page",{packages});
+       //include the delete and add packages link  here
+     }catch(err){
+         console.log("an error occured in the packages route");
+     }
+  
+
+  
+})
+//end of the the get packages page
+
+//start working on the get add-package route
+router.get("/add-package",authenthicate("admin"),async(req,res)=>{
+    res.render("add-packages");
+});
+//end of the get add-package route
+
+//start working on the post add-package route
+router.post("/add-package",authenthicate("admin"),async(req,res)=>{
+    try{
+         let num = parseInt(req.body.name);
+         let data = new Packages({volume:num});
+         await data.save();
+         req.flash("success","package added successfully");
+         res.redirect("/admin/packages");
+    }catch(err){
+          req.flash("error","an error occured package wasnt added")
+          res.redirect("/admin/add-package");
+    }
+});
+//end of the post add-package route
 
 module.exports = router;
