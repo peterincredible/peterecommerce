@@ -1,0 +1,65 @@
+<div class="container-fluid fullheight"style="padding-left: 0px; padding-right:0px; overflow:auto">
+    <div class="row">
+       <div class="col-md-12">
+            {{>header2}}
+        </div>
+    </div>
+    <div class="row">
+         <div class="col-xs-12 col-md-4 col-md-offset-4">
+            <div class="panel panel-default"style="margin-top:100px;">
+                <div class="panel-heading">
+                    <div class="row">
+                        <h3 class="text-center">Payment Details</h3>
+                        <img class="img-responsive cc-img" src="http://www.prepbootstrap.com/Content/images/shared/misc/creditcardicons.png">
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form  method="POST" action="/user/package-investment/{{package._id}}" id="cvc">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>CARD NUMBER</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Valid Card Number" />
+                                        <span class="input-group-addon"><span class="fa fa-credit-card"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7 col-md-7">
+                                <div class="form-group">
+                                    <label><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+                                    <input type="text" class="form-control" placeholder="MM / YY" />
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-md-5 pull-right">
+                                <div class="form-group">
+                                    <label>CV CODE</label>
+                                    <input type="text" class="form-control" placeholder="CVC" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>CARD OWNER</label>
+                                    <input type="text" class="form-control" placeholder="Card Owner Names" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-xs-12">
+                            <button class="btn btn-warning btn-lg btn-block">Process payment</button>
+                        </div>
+                    </form>
+                </div>
+               
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-primary text-center bottom"  style="bottom:0px; right:0px; width:100%; margin-left:0px;margin-right:0px;">
+            {{>footer}}
+    </div>
+</div>

@@ -6,6 +6,7 @@ let Orders = require("../db/order-db");
 let passport = require("../mypassport");
 let authenthicate = require("../authenthication");
 var csrf = require('csurf');
+let moment = require("moment");
 var csrfProtection = csrf({ cookie: true });
 //isauthenthicated to check if a user is authenthicated
   function authenthication(req,res,next){
@@ -157,4 +158,36 @@ router.post("/edit-profile/:id",authenthicate("user"),async(req,res)=>{
    }
 });
 //end of the post edit profile account
+
+//start working on the get user package investment page
+router.get("/package-investment/:id",authenthicate("user"),async (req,res)=>{
+  
+  
+  try{
+    let package = await Packages.findById(req.params.id);
+     res.render("package-investment-payment-page",{package});
+
+  }catch(err){
+    res.status(401).send("<h1>we dont have this package investment volume</h1>")
+  }
+})
+//end of the get user package investment page
+
+//start working on the post user package investement route
+router.post("/package-investment/:id",authenthicate("user"),async (req,res)=>{
+    
+  
+  try{
+    let package = await Packages.findById(req.params.id);
+    let user = await User.findById(req.user.id);
+    user.investment.push({volume:package.volume,time:moment().format("ll")});
+    await user.save();
+    console.log(user);
+    res.redirect("/user/dashboard");
+
+  }catch(err){
+    res.status(401).send("<h1>we have a problem on the package investment post route</h1>");
+  }
+})
+//end of the post user package investment route
 module.exports = router;

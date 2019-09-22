@@ -97,6 +97,9 @@ a:hover{
 .vcenter{
     vertical-align: middle;
 }
+.cc-img {
+    margin: 0 auto;
+}
 
 @media(max-width:770px){
     .product-height{

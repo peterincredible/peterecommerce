@@ -2,6 +2,10 @@ let mongoose = require("mongoose");
 let bcrypt = require("bcryptjs");
 let salt = bcrypt.genSaltSync(10);
 let schema = mongoose.Schema;
+let investment = new schema({
+    volume:Number,
+    time:String
+});
 let tempschema = new schema({
     name:{
         type:String,
@@ -27,7 +31,8 @@ let tempschema = new schema({
     role:{
         type:String,
         default:"user"
-    }
+    },
+    investment:[investment]
         
 });
 tempschema.pre("save",function(next){
