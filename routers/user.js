@@ -190,4 +190,16 @@ router.post("/package-investment/:id",authenthicate("user"),async (req,res)=>{
   }
 })
 //end of the post user package investment route
+
+//start of the get investment page route
+router.get("/investment-page",authenthicate("user"),async(req,res)=>{
+     try{
+          let user = await User.findById(req.user.id);
+          let yourinvestment = user.investment;
+          res.render("investment-page",{yourinvestment});
+     }catch(err){
+       console.log('<h1>there is an error in the investment-page route </h1>');
+     }
+});
+//end of the get investment page route
 module.exports = router;

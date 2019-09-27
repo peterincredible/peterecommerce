@@ -82,7 +82,7 @@ router.get("/delete-product/:id",authenthicate("admin"),async (req,res)=>{
  //start of the get edit product routh
  router.get("/edit-product/:id",authenthicate("admin"),async (req,res)=>{
   try{
-      let product =  await Product.findById(req.params.id);
+      let product =  await Product.findById(req.params.id).select("name category price description ").exec();
       let categories= await cat.find({}).select("name -_id").exec();
         res.render("edit-product",{title:"edit product",product,categories});
   }catch(e){
