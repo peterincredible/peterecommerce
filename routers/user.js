@@ -1,6 +1,8 @@
 let router = require("express").Router();
 let Product = require("../db/product");
 let User = require("../db/user-db");
+let bcrypt = require("bcryptjs");
+let salt = bcrypt.genSaltSync(10);
 let Packages = require("../db/packages-db");
 let Orders = require("../db/order-db");
 let passport = require("../mypassport");
@@ -25,6 +27,8 @@ router.get("/registration",(req,res)=>{
 //start of the post registration page
 router.post("/registration",(req,res)=>{
   let user = new User(req.body);
+  console.log(user.password);
+  user.password = bcrypt.hashSync(user.password,salt);
   user.save()
   .then(data=>{
     req.login(user,function(err){
@@ -48,7 +52,6 @@ router.get("/signin",csrfProtection,(req,res)=>{
 //end of the get signin page
 //start of the post signin-page
 router.post("/signin",passport.authenticate("local"),(req,res)=>{
-  console.log("it worked first");
    res.redirect("/");
 });
 //end of the post signin-page
@@ -150,10 +153,10 @@ router.get("/edit-profile/:id",authenthicate("user"),async(req,res)=>{
 router.post("/edit-profile/:id",authenthicate("user"),async(req,res)=>{
    try{
         await User.findByIdAndUpdate(req.params.id,req.body).exec();
-        console.log("successfully update the userf profile")
+  
         res.redirect("/user/dashboard");
    }catch(err){
-          console.log("an error occured in the edit profile route");
+  
           res.send("an error occured in the edit profile route");
    }
 });
@@ -182,7 +185,6 @@ router.post("/package-investment/:id",authenthicate("user"),async (req,res)=>{
     let user = await User.findById(req.user.id);
     user.investment.push({volume:package.volume,time:moment().format("ll")});
     await user.save();
-    console.log(user);
     res.redirect("/user/dashboard");
 
   }catch(err){

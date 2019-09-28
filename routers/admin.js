@@ -92,50 +92,21 @@ router.get("/delete-product/:id",authenthicate("admin"),async (req,res)=>{
 })
  //#end of the edit product routh
  //start of the post edit product routh
-router.post("/edit-product/:id",upload.single("image"),authenthicate("admin"),async (req,res)=>{
+router.post("/edit-product/:id",authenthicate("admin"),async (req,res)=>{
   try{
       let name=req.body.name;
       let category=req.body.category;
       let price= req.body.price;
       let description=req.body.description;
-      let image=req.file.originalname;
-      //await fs.move("upload/"+req.file.originalname,"public/images/"+data._id+"/"+data.image);
-      let data = await Product.findById(req.params.id).select("image").exec();
-      if(data.image == ""){
-        let product = await Product.findByIdAndUpdate(req.params.id,{name,category,price,description,image},{new:true});
-        await fs.move("upload/"+req.file.originalname,"public/images/"+product._id+"/"+product.image);
-        req.flash("success","product successfully edited");
-        res.redirect("/admin/product");
-      }else if(fs.pathExistsSync("public/images/"+data._id+"/"+data.image)){
-          await fs.remove("public/images/"+data._id+"/"+data.image);
-          let product = await Product.findByIdAndUpdate(req.params.id,{name,category,price,description,image},{new:true});
-          await fs.move("upload/"+req.file.originalname,"public/images/"+product._id+"/"+product.image);
-          req.flash("success","product successfully edited");
-          res.redirect("/admin/product");
-      }else{
-        let product = await Product.findByIdAndUpdate(req.params.id,{name,category,price,description,image},{new:true});
-        await fs.move("upload/"+req.file.originalname,"public/images/"+product._id+"/"+product.image);
-        req.flash("success","product successfully edited");
-        res.redirect("/admin/product");
+      let product = await Product.findByIdAndUpdate(req.params.id,{name,category,price,description},{new:true});
+      req.flash("success","product successfully edited");
+      res.redirect("/admin/product");
       }
-  }catch(err){
+  catch(err){
       console.log("there was and error in the post edit-product")
       req.flash("error","product cant be edited and error occured");
       res.redirect("/admin/edit-product");
-  }  
-  /*try{
-    let name = req.body.name;
-    let category = req.body.category;
-    let price = req.body.price;
-    let description = req.body.description;
-    let image = req.file.originalname;
-    //let oldimage = await Product.findById(req.params.id).select("image -_id").exec();
-    //console.log(oldimage)
-    console.log(image+"this is the new image");
-
-  }catch(err){
-    console.log("an error occured");
-  }*/   
+  }    
 });
  //#end of the post edit product routh
  //start of the get make user admin route

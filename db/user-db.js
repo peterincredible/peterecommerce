@@ -1,8 +1,7 @@
 let mongoose = require("mongoose");
 let bcrypt = require("bcryptjs");
-let salt = bcrypt.genSaltSync(10);
 let schema = mongoose.Schema;
-let investment = new schema({
+let investments = new schema({
     volume:Number,
     time:String
 });
@@ -32,12 +31,8 @@ let tempschema = new schema({
         type:String,
         default:"user"
     },
-    investment:[investment]
+    investment:[investments]
         
-});
-tempschema.pre("save",function(next){
-this.password = bcrypt.hashSync(this.password,salt);
-next();
 });
 tempschema.methods.validPassword = function(password){
  return bcrypt.compareSync(password,this.password);
