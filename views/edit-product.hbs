@@ -1,6 +1,6 @@
-<div class="container-fluid">
+<div class="container-fluid fullheight " style="position:relative;overflow:auto; ">
     <div class="row">
-        {{>header}}
+        {{>header2}}
     </div>
     <div class="row">
          <div class="col-md-8 col-md-offset-2" >
@@ -8,7 +8,7 @@
                      <div class="bg-danger text-center">{{error}}</div>
                 {{/if}}
                 <h1 class="text-center">Edit Product</h1>
-                <form class="form-horizontal"style="position:static" method="post" action="/admin/edit-product/{{product.id}}">
+                <form class="form-horizontal" method="post" action="/admin/edit-product/{{product.id}}">
                     <div class="form-group">
                         <label  class="col-sm-2 control-label">Product Name</label>
                         <div class="col-sm-10">
@@ -48,11 +48,33 @@
                             <button type="submit" class="btn btn-default">submit</button>
                         </div>
                     </div>
-                    
                 </form>
             </div>
     </div>
-    <div class="row bg-primary  bottom" style="bottom:0px; right:0px; width:100%; margin-left:0px;margin-right:0px;">
+    <div class="row" style="margin:0px;">
+        <div class="col-sm-6 col-sm-offset-3 col-xs-12" style="padding:0;">
+              <h1 class="text-center">Edit Product Image</h1>
+              <div class="row" style="margin:0;">
+                  <div class="col-sm-6 col-sm-offset-3 col-xs-12" style="padding:0;" >
+                        <img src="/images/{{product.id}}/{{product.image}}" style="width:250px; height:250px;" id="image-tag"/>
+                  </div>
+              </div>
+              <form action="/admin/update-product-image/{{product.id}}" method="POST" class="form" enctype="multipart/form-data" >
+                  <div class="form-group">
+                      <label class="control-label">upload file</label>
+                      <div class="form-input">
+                          <input class="form-control" type="file" id="image-upload" name="image"/>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="form-input">
+                          <button class="btn btn-default">Submit</button>
+                      </div>
+                  </div>
+              </form>            
+        </div>
+    </div>
+    <div class="row bg-primary bottom" style="bottom:0px; right:0px; width:100%; margin-left:0px;margin-right:0px;">
         {{>footer}}
     </div>
 

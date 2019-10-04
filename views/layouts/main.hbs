@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-   <!--  <link rel="stylesheet" href="/styles/bootstrap.min.css"/>-->
     <link rel="stylesheet" href="/styles/home.css"/>
     <link rel="stylesheet" href="/styles/simple-sidebar.css"/>
     
@@ -15,7 +14,7 @@
      {{{body}}}
          <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
-  
+
    
     <script>
         //start working with the sidebar javacript thing
@@ -150,10 +149,23 @@
          
         };
 
-        let cvc = $("#cvc");
-        cvc.on("submit",function(){
-            console.log("cvc worked");
-        })
+       let image_upload = $("#image-upload");
+       image_upload.on("change",function(e){
+        let img = document.getElementById("image-tag")//$("#image-tag");
+         let expression = /(jpg|png)$/ig;
+         let filereader = new FileReader();
+         filereader.onload = function(e){
+              console.log(e.target);
+              console.log(img);
+              img.src = e.target.result;
+        }
+            if(expression.test(e.target.files[0].name)){
+                filereader.readAsDataURL(e.target.files[0]);
+            }
+           
+           
+       })
+
 
     </script>
 </body>

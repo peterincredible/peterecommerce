@@ -82,7 +82,7 @@ router.get("/delete-product/:id",authenthicate("admin"),async (req,res)=>{
  //start of the get edit product routh
  router.get("/edit-product/:id",authenthicate("admin"),async (req,res)=>{
   try{
-      let product =  await Product.findById(req.params.id).select("name category price description ").exec();
+      let product =  await Product.findById(req.params.id).select("name category price description image").exec();
       let categories= await cat.find({}).select("name -_id").exec();
         res.render("edit-product",{title:"edit product",product,categories});
   }catch(e){
@@ -98,7 +98,7 @@ router.post("/edit-product/:id",authenthicate("admin"),async (req,res)=>{
       let category=req.body.category;
       let price= req.body.price;
       let description=req.body.description;
-      let product = await Product.findByIdAndUpdate(req.params.id,{name,category,price,description},{new:true});
+      await Product.findByIdAndUpdate(req.params.id,{name,category,price,description},{new:true});
       req.flash("success","product successfully edited");
       res.redirect("/admin/product");
       }
@@ -114,6 +114,35 @@ router.post("/edit-product/:id",authenthicate("admin"),async (req,res)=>{
     res.render("make-user-admin");
  })
  //end of the get make user admin route
+
+ //start work on the edit product image router
+router.post("/update-product-image/:id",upload.single("image"),authenthicate("admin"),async (req,res)=>{
+  
+    try{
+      //get the product by it's id and update image name in the product database
+         await Product.findByIdAndUpdate(req.params.id,{image:req.file.originalname},{new:true})
+    
+      //then put the new image file in the right directory
+      if(fs.pathExistsSync("public/images/"+req.params.id))
+      {
+        await fs.remove("public/images/"+req.params.id);
+        await fs.move("upload/"+req.file.originalname,"public/images/"+req.params.id+"/"+req.file.originalname);
+        console.log("updated image")
+        req.flash("success","product image successfully updated");
+        res.redirect("/admin/product");
+      }else{
+        await fs.move("upload/"+req.file.originalname,"public/images/"+req.params.id+"/"+req.file.originalname);
+        req.flash("success","product image successfully updated");
+        res.redirect("/admin/product");
+        console.log("updated image")
+      }
+    //if an error occured the catch block catches it
+    }catch(err){
+       console.log("an error occured in the update product image");
+    }
+  });
+ //end of the work on the edit product image router
+
  //start of thepost  make user admin route
  router.post("/make-user-admin",authenthicate("admin"),async(req,res)=>{
     try{
