@@ -1,10 +1,10 @@
 <div class="container-fluid fullheight" style="padding-left: 0px; padding-right:0px; overflow:auto">
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row header" style="margin-left:0;margin-right:0;">
+        <div class="col-md-12" style="padding:0;">
             {{>header2}}
         </div>
     </div>
-    <div class="row product-height">
+    <div class="row content" style=" margin:0;">
         {{#if success}}
         <div class="col-md-8 col-md-offset-2">
             <p class="bg-primary text-center text-dark">{{success}}</p>
@@ -59,7 +59,7 @@
         </div>
     </div>
     
-    <div class="row bg-primary text-center bottom"  style="bottom:0px; right:0px; width:100%; margin-left:0px;margin-right:0px;">
+    <div class="row bg-primary text-center footer"  style="width:100%; margin-left:0px;margin-right:0px;">
             {{>footer}}
     </div>
 </div>

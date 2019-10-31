@@ -1,8 +1,8 @@
-<div class="container-fluid fullheight " style="position:relative;overflow:auto; ">
-    <div class="row">
+<div class="container-fluid fullheight" style="overflow:auto;">
+    <div class="row header">
         {{>header2}}
     </div>
-    <div class="row">
+    <div class="row content">
          <div class="col-md-8 col-md-offset-2" >
                 {{#if error}}
                      <div class="bg-danger text-center">{{error}}</div>
@@ -54,12 +54,10 @@
     <div class="row" style="margin:0px;">
         <div class="col-sm-6 col-sm-offset-3 col-xs-12" style="padding:0;">
               <h1 class="text-center">Edit Product Image</h1>
-              <div class="row" style="margin:0;">
-                  <div class="col-sm-6 col-sm-offset-3 col-xs-12" style="padding:0;" >
-                        <img src="/images/{{product.id}}/{{product.image}}" style="width:250px; height:250px;" id="image-tag"/>
-                  </div>
-              </div>
-              <form action="/admin/update-product-image/{{product.id}}" method="POST" class="form" enctype="multipart/form-data" >
+              <img src="/images/{{product.id}}/{{product.image}}" style="width:250px; height:250px; display:block;" id="image-tag" class="center-block"/>
+        </div>
+        <div class="col-sm-6 col-sm-offset-3 col-xs-12" style="padding:0; margin-bottom:20px;">
+                <form action="/admin/update-product-image/{{product.id}}" method="POST" class="form block-center" enctype="multipart/form-data" >
                   <div class="form-group">
                       <label class="control-label">upload file</label>
                       <div class="form-input">
@@ -71,10 +69,12 @@
                           <button class="btn btn-default">Submit</button>
                       </div>
                   </div>
-              </form>            
+              </form>      
         </div>
+                    
+        
     </div>
-    <div class="row bg-primary bottom" style="bottom:0px; right:0px; width:100%; margin-left:0px;margin-right:0px;">
+    <div class="row bg-primary footer" style="width:100%; margin-left:0px;margin-right:0px;">
         {{>footer}}
     </div>
 
