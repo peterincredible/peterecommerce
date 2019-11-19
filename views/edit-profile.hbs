@@ -1,10 +1,10 @@
- <div class="container-fluid">
-     <div class="row header">
+ <div class="container-fluid home-height" style="padding-left:0; padding-right:0;">
+     <div class="row header" style="margin-left:0; margin-right:0;">
          {{>header}}
      </div>
-     <div class="row content">
+     <div class="row content" style="margin-left:0; margin-right:0;">
      <div class="col-md-offset-3 col-md-6 registration-height">
-         <h1 class="text-center"><b>Register Users</b></h1>
+         <h1 class="text-center"><b>Edit Profile</b></h1>
          <form  method="POST" action="/user/edit-profile/{{user._id}}">
              <div class="form-group">
                  <label for="name">Name</label>
