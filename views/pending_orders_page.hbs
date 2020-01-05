@@ -1,11 +1,11 @@
-<div class="container-fluid fullheight" style="padding-left: 0px; padding-right:0px; overflow:auto;">
-    <div class="row header"style="margin:0;">
-        <div class="col-md-12" style="padding:0;">
+<div class="flex-container rm-padding-lr">
+    <div class="row flex-header rm-margin-lr">
+        <div class="col-md-12 rm-padding-lr">
             {{>header2}}
         </div>
     </div>
-    <div class="row content" style="margin:0;">
-        <div class="col-md-8 col-md-offset-2 force-overflow" >
+    <div class="row flex-content rm-margin-lr" >
+        <div class="col-md-8 col-md-offset-2 ">
             <h2>Your Orders</h2>
             {{#if totalorders}}
                 {{#each totalorders}}
@@ -56,7 +56,7 @@
               
     </div>
     
-    <div class="row bg-primary text-center footer"  style="width:100%; margin-left:0px;margin-right:0px;">
+    <div class="row flex-footer rm-margin-lr">
             {{>footer}}
     </div>
 </div>

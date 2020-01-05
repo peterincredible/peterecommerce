@@ -1,11 +1,11 @@
- <div class="container-fluid fullheight">
-     <div class="row header">
-         {{>header}}
+ <div class="flex-container" style>
+     <div class="row flex-header rm-margin-lr">
+         {{>header2}}
      </div>
-     <div class="row content">
+     <div class="row flex-content rm-margin-lr">
      <div class="col-md-offset-3 col-md-6 registration-height">
          <h1 class="text-center"><b>Register Users</b></h1>
-         <form id="registration-form" method="POST" action="/user/registration">
+         <form id="registration-form" method="POST" action="/user/registration" style="margin-bottom:10px;">
              <div class="form-group">
                  <label for="name">Name</label>
                  <input type="text" id="name" placeholder="your name" class="form-control" name="name"/>
@@ -34,7 +34,7 @@
          </form>
      </div>
  </div>
-     <div class="row bg-primary footer" style="width:100%; margin-left:0px;margin-right:0px;">
+     <div class="row  flex-footer rm-margin-lr">
          {{>footer}}
      </div>
  </div>

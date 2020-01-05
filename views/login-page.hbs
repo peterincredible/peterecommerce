@@ -1,12 +1,12 @@
-<div class="container-fluid fullheight" style="padding-left:0px;padding-right:0px;">
-    <div class="row header" style="margin-left:0px; margin-right:0px;">
-        <div class="col-md-12 col-sm-12" style="margin-left:0px; margin-right:0px; padding-left:0px;padding-right:0px;">
+<div class="flex-container rm-padding-lr">
+    <div class="row flex-header rm-margin-lr">
+        <div class="col-md-12 col-sm-12 rm-margin-lr rm-padding-lr">
             {{>header2}}
         </div>
     </div>
-    <div class="row content" style="margin-left:0px; margin-right:0px;">
-        <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3" style="margin-top:140px; background-color:rgb(192, 200, 209);">
-            <form class="form-horizontal" method="Post" action="/user/signin">
+    <div class="row flex-content rm-margin-lr mk-flex flex-column flex-center" >
+        <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3" style=" background-color:rgb(192, 200, 209);">
+            <form class="form-horizontal" method="Post" action="/user/signin" >
                 <input type="hidden" name="_csrf" value="{{csrfToken}}">
                 <div class="form-group ">
                     <div class="col-md-offset-2 col-md-10"> <h3><b>Sign In</b></h3></div>
@@ -41,7 +41,7 @@
             </form>
         </div>
     </div>
-    <div class="row bg-primary footer" style="width:100%; margin-left:0px;margin-right:0px;">
+    <div class="row flex-footer rm-margin-lr">
         <div class="col-sm-12">{{>footer}}</div>
     </div>
 </div>

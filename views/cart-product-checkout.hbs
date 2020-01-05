@@ -1,8 +1,8 @@
-<div class="container-fluid">
-    <div class="row">
+<div class="flex-container rm-padding-lr">
+    <div class="row flex-header rm-margin-lr">
         {{>header2}}    
     </div>
-    <div class="row registration-height">
+    <div class="row flex-content">
         <div class="col-md-8 col-md-offset-2">
         <h3><b>Checkout</b></h3>
         <table class="table ">
@@ -36,9 +36,9 @@
                 <td style="text-align:center;"><b>{{totalprice}}</b></td>
                  <td style="text-align:center;">
                      {{#if cartcounter}}
-                     <a class="btn btn-primary" href="/cart/product/checkout/product-purchased">Checkout</a>
+                     <a class="btn btn-primary" href="/cart/product/checkout/purchase-product">Checkout</a>
                      {{else}}
-                     <a class="btn btn-primary" disabled href="/cart/product/checkout/product-purchased">Checkout</a>
+                     <a class="btn btn-primary" disabled href="/cart/product/checkout/purchase-product">Checkout</a>
                      {{/if}}
                      </td>
                 <td style="text-align:center;"><a class="btn btn-danger" href="/cart/product/checkout-page/clear-cart">Clear Cart</a></td>
@@ -46,7 +46,7 @@
         </table>
         </div>
     </div>
-    <div class="row bg-primary bottom" style="bottom:0px; right:0px; width:100%; margin-left:0px;margin-right:0px;">
+    <div class="row flex-footer rm-margin-lr">
         <div class="col-md-12">{{>footer}}</div>
     </div>
 </div>

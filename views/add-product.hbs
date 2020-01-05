@@ -1,9 +1,9 @@
-<div class="container-fluid fullheight">
-    <div class="row">
+<div class="container-fluid flex-container rm-padding-lr">
+    <div class="row flex-header rm-margin-lr">
         {{>header2}}
     </div>
-    <div class="row edit-product-height">
-         <div class="col-md-8 col-md-offset-2" >
+    <div class="row flex-content rm-margin-lr">
+         <div class="col-md-8 col-md-offset-2 " >
                 {{#if error}}
                 <div class="bg-danger text-center">{{error}}</div>
                 {{/if}}
@@ -13,21 +13,21 @@
 
                 <h1 class="text-center">Add a Product</h1>
                 <form class="form-horizontal"style="position:static"method="post" enctype="multipart/form-data" action="/admin/add-product">
-                    <div class="form-group">
+                    <div class="form-group rm-margin-lr">
                         <label  class="col-sm-2 control-label">Product Name</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-10 rm-padding-lr">
                         <input type="text" class="form-control" name="name" placeholder="Product Name">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group rm-margin-lr">
                         <label class="col-sm-2 control-label">Price</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-10 rm-padding-lr">
                         <input type="text" class="form-control" name="price">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group rm-margin-lr">
                         <label class="col-sm-2 control-label">Category</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-10 rm-padding-lr">
                             <select class="form-control" name="category">
                                 <option selected="selected">none</option>
                                 {{#each categories}}
@@ -36,26 +36,26 @@
                             </select>
                         </div>
                     </div>
-                <div class="form-group">
-                        <label class="col-sm-2 control-label">Description</label>
-                        <div class="col-sm-10">
+                <div class="form-group rm-margin-lr">
+                        <label class="col-sm-2 control-label ">Description</label>
+                        <div class="col-sm-10 rm-padding-lr">
                             <textarea class="form-control" rows="3"name="description"placeholder="describe your product"></textarea>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group rm-margin-lr">
                         <label class="col-sm-2 control-label">image input</label>
                         <div class="col-sm-10">
                             <input type="file" name="image" id="myfile">
                         </div> 
                     </div>
-                    <div class="form-group">
+                    <div class="form-group rm-margin-lr">
                         <label class="col-sm-2 control-label">preview Image</label>
                         <div class="col-sm-10" id="imgcontainer">
                         
                         </div> 
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
+                    <div class="form-group rm-margin-lr">
+                        <div class="col-sm-offset-2 col-sm-10 rm-padding-lr">
                             <button type="submit" class="btn btn-default">submit</button>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                 </form>
             </div>
     </div>
-    <div class="row bg-primary bottom"style="bottom:0px; right:0px; width:100%; margin-left:0px;margin-right:0px;">
+    <div class="row flex-footer rm-margin-lr">
         {{>footer}}
     </div>
 

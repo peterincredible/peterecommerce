@@ -75,17 +75,7 @@ a:hover{
 .home-height{
     height: 100%;
 }
-.header{
-    position:relative;
-    z-index:1;
-    height:52px;
-}
-.footer{
-    height:20px;
-}
-.content{
-    min-height:calc(100% - 20px - 52px);
-}
+
 .thumbnail{
     height:30%;
 }
@@ -101,6 +91,58 @@ a:hover{
 .cc-img {
     margin: 0 auto;
 }
+
+.rm-padding-lr{
+    padding-left:0;
+    padding-right:0;
+}
+.rm-padding-tb{
+    padding-top:0;
+    padding-bottom:0;
+}
+.rm-margin-lr{
+    margin-left:0 !important;
+    margin-right: 0 !important;
+}
+.rm-margin-tb{
+    margin-top:0;
+    margin-bottom:0
+}
+.mk-flex{
+    display: flex;
+}
+.flex-column{
+    flex-direction: column;
+}
+.flex-row{
+    flex-direction: row;
+}
+.flex-center{
+   justify-content: center;
+}
+.flex-container{
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y:auto;
+}
+.flex-footer{
+    margin-top:auto;
+    background-color:black;
+    color:white;
+  
+}
+.flex-header{
+  width:100%;
+
+}
+.flex-content{
+    flex-basis:70%;
+    margin-top:1%;
+    flex-grow:1;
+    flex-shrink:1;
+}
+
 
 @media(max-width:770px){
     .product-height{

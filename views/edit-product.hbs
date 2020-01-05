@@ -1,8 +1,8 @@
-<div class="container-fluid fullheight" style="overflow:auto;">
-    <div class="row header">
+<div class="flex-container rm-padding-lr">
+    <div class="row flex-header rm-margin-lr">
         {{>header2}}
     </div>
-    <div class="row content">
+    <div class="row flex-content">
          <div class="col-md-8 col-md-offset-2" >
                 {{#if error}}
                      <div class="bg-danger text-center">{{error}}</div>
@@ -74,7 +74,7 @@
                     
         
     </div>
-    <div class="row bg-primary footer" style="width:100%; margin-left:0px;margin-right:0px;">
+    <div class="row flex-footer rm-margin-lr">
         {{>footer}}
     </div>
 

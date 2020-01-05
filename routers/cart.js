@@ -24,6 +24,10 @@ router.get("/product/checkout/product-purchased",async function(req,res){
     
    }
 });
+router.get("/product/checkout/purchase-product",async function(req,res){
+  
+  res.render('cart-product-payment');
+})
 router.get("/product/checkout-page/clear-cart",function(req,res){
      let cart = req.session.cart;
      for(let data in cart){

@@ -1,8 +1,8 @@
-<div class="container-fluid fullheight"style="padding:0;">
-    <div class="row header"style="margin:0;">
+<div class="flex-container rm-padding-lr">
+    <div class="row header rm-margin-lr">
         {{>header2}}
     </div>
-    <div class="row content" style="margin-top:10px; margin-left:0;margin-right:0;">
+    <div class="row flex-content rm-margin-lr" style="margin-top:10px;">
         <div class="col-md-6 col-md-offset-3 ">
                 <a class="btn btn-primary" href="/admin/category">Back To Category</a>
                 <form action="/admin/add-category" method="POST">
@@ -20,7 +20,7 @@
                 </form>
         </div>
     </div>
-    <div class="row bg-primary footer" style="width:100%; margin-left:0px;margin-right:0px;">
+    <div class="row flex-footer rm-margin-lr">
         {{>footer}}
     </div>
 </div>
