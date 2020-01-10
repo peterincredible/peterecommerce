@@ -75,16 +75,16 @@ router.get("/delete-product/:id",authenthicate("admin"),async (req,res)=>{
   try{
       let record=  await Product.findById(req.params.id);//find the record you want to delete from the database
       //use cloudinary to delete the image file from the server
-      cloudinary.v2.uploader.destroy(record.image_id,(e)=>{
-          if(e){
-            throw e;
+      cloudinary.v2.uploader.destroy(record.image_id,(err)=>{
+          if(err){
+            throw err;
           }
       })
       //delete the record
       record.remove();
     req.flash("success","product successfully deleted");
     res.redirect("/admin/product");
-  }catch(e){
+  }catch(err){
     req.flash("error","there was an error deleting product ");
     res.redirect("/admin/product");
   }
