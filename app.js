@@ -1,6 +1,7 @@
 let express = require("express");
 let exphbs = require("express-handlebars");
 let Product = require("./db/product");
+let Category = require("./db/category");
 let passport = require("./mypassport");
 let orderrouter = require("./routers/order");
 let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
@@ -84,7 +85,9 @@ app.use(function(req,res,next){
 })
 app.get("/",async (req,res)=>{
     try{
-        res.render("home",{title:"home",product:await Product.find({})}); 
+        let category = await Category.find({})//get all the categories of product
+        let product = await Product.find({})//get all the product in  the database
+        res.render("home",{title:"home",product,category}); 
     }catch(err){
         res.send("<h1 class='text-center'>an error occured</h1>");
     }
@@ -93,8 +96,9 @@ app.get("/",async (req,res)=>{
 //the search product route
 app.get("/search/product",async (req,res)=>{
   try{
-    let product = await Product.find({category:req.query.search}).exec();
-    res.render("home",{title:"home",product});
+    let category = await Category.find({})//get all the categories of product
+    let product = await Product.find({category:req.query.search}).exec();//get all product name that match the search query
+    res.render("home",{title:"home",product,category});
   }catch(err){
     console.log("an error occured");
   }

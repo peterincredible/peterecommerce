@@ -7,27 +7,14 @@
                     <!--<a href="#menu-toggle" class="hidden-md hidden-lg" id="menu-toggle">Menu</a>-->
                     <p class=""style="color:white">Product</p>
                 </li>
-                <li>
-                    <a href="#">Rice</a>
-                </li>
-                <li>
-                    <a href="#">Beans</a>
-                </li>
-                <li>
-                    <a href="#">Wheat</a>
-                </li>
-                <li>
-                    <a href="#">Dog foods</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
+                {{#if category}}
+                    {{#each category}}
+                        <li>
+                        <a href="/search/product?search={{name}}"">{{name}}</a>
+                    </li>
+                    {{/each}}
+                {{/if}}
+               
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -37,18 +24,21 @@
             <div class="flex-container rm-padding-lr" >
                 <div class="row flex-header rm-margin-lr" >{{>header}} </div>
                 <div class="row flex-content rm-margin-lr">
-                    {{#each product}}
-                        <div class="col-xs-6 col-md-4" >
-                            <div class="thumbnail">
-                                <img src="/images/{{_id}}/{{image}}" alt="no image" class="" >
-                                <div class="caption">
-                                    <h3>{{name}}</h3>
-                                    <p>{{trunc description}}</p>
-                                    <p><a href="/cart/product/{{_id}}" class="btn btn-primary" role="button">Buy</a><span class="pull-right">{{price}}</span></p>
+                    {{#if product}}
+                        {{#each product}}
+                            <div class="col-sm-4" >
+                                <div class="thumbnail rm-padding-lr rm-padding-tb">
+                                    <img src="{{image}}" alt="no image" class="" >
+                                    <div class="caption">
+                                        <h3>{{name}}</h3>
+                                        <p><a href="/cart/product/{{_id}}" class="btn btn-primary" role="button">Buy</a><span class="pull-right">{{price}}</span></p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    {{/each}}
+                        {{/each}}
+                        {{else}}
+                        <h3 class="text-center">no product available or found from database</h3>
+                    {{/if}}
                 </div>
                 <div class="row flex-footer rm-margin-lr" style=" width:100%;">{{>footer}}</div>
                     

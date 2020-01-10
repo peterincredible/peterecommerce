@@ -16,6 +16,9 @@ let tempschema = new schema({
     image:{
         type:String
     },
+    image_id:{
+        type:String
+    },
     category:{
         type:String,
         required:true

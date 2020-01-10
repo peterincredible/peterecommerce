@@ -1,22 +1,28 @@
 let router = require("express").Router();
 let Product = require("../db/product");
 let Packages = require("../db/packages-db");
+let cloudinary = require("cloudinary");
+let cloudinaryStorage = require("multer-storage-cloudinary");
 let multer = require("multer");
 let fs = require("fs-extra");
 let cat = require("../db/category");
 let authenthicate = require("../authenthication");
 let User = require("../db/user-db");
 let Orders = require("../db/order-db");
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'upload/')
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    }
-  })
-   
-  var upload = multer({ storage: storage })
+//add make the configuration using my cloudinary cloud details
+cloudinary.config({
+ cloud_name:"dflyjffzr",
+ api_key:"879813996966535",
+ api_secret:"_LoL49Uy7kWXF823GiYUgZb18co"
+});
+//initializing my cloudinary details with multer cloudinary storage to upload for us
+var storage = cloudinaryStorage({
+    cloudinary,
+    folder:"ecommerce",
+    allowedFormats: ["jpg","png"]
+  }); 
+  //
+  var upload = multer({storage });
 //the add-product router on get request
 router.get("/add-product",authenthicate("admin"),async (req,res)=>{
     let data= await cat.find({}).select("name -_id").exec();
@@ -25,20 +31,20 @@ router.get("/add-product",authenthicate("admin"),async (req,res)=>{
 //end of the add-product rout on get request
 //the post add-product rout 
 router.post("/add-product",upload.single("image"),authenthicate("admin"),async (req,res)=>{
+  console.log("file in add product",req.file);
   let product = new Product(
     {name:req.body.name,
     category:req.body.category,
     price:req.body.price,
     description:req.body.description,
-    image:req.file.originalname
+    image:req.file.url,
+    image_id:req.file.public_id
     }
 );
 /*
 */
 try{
-    let data = await product.save();
-    console.log(data);
-    await fs.move("upload/"+req.file.originalname,"public/images/"+data._id+"/"+data.image);
+    await product.save();
     req.flash("success","product has been successfully added");
     res.redirect("/admin/product");
 }catch(e){
@@ -67,9 +73,15 @@ router.get("/product",authenthicate("admin"),async (req,res)=>{
 //the delete-product router on get request
 router.get("/delete-product/:id",authenthicate("admin"),async (req,res)=>{
   try{
-    await Product.findByIdAndRemove(req.params.id);//find and remove the product from the mongodb database
-    await fs.remove("public/images/"+req.params.id)//find and remove the just deleted product product image from the server
-    await Orders.findOne({})
+      let record=  await Product.findById(req.params.id);//find the record you want to delete from the database
+      //use cloudinary to delete the image file from the server
+      cloudinary.v2.uploader.destroy(record.image_id,(e)=>{
+          if(e){
+            throw e;
+          }
+      })
+      //delete the record
+      record.remove();
     req.flash("success","product successfully deleted");
     res.redirect("/admin/product");
   }catch(e){
@@ -119,19 +131,28 @@ router.post("/edit-product/:id",authenthicate("admin"),async (req,res)=>{
 router.post("/update-product-image/:id",upload.single("image"),authenthicate("admin"),async (req,res)=>{
   
     try{
-      //get the product by it's id and update image name in the product database
-         await Product.findByIdAndUpdate(req.params.id,{image:req.file.originalname},{new:true})
-    
+      //get the product by it's id from the  product database
+        let product = await Product.findById(req.params.id);
       //then put the new image file in the right directory
-      if(fs.pathExistsSync("public/images/"+req.params.id))
+      if(!product.image_id == "")
       {
-        await fs.remove("public/images/"+req.params.id);
-        await fs.move("upload/"+req.file.originalname,"public/images/"+req.params.id+"/"+req.file.originalname);
+       
+        //use cloudinary to delete the image file from the server
+              cloudinary.v2.uploader.destroy(product.image_id,(e)=>{
+                if(e){
+                  throw e;
+                }
+                product.image = req.file.url;//save the new image address
+                product.image_id = req.file.public_id;//save the new image public key incase of when product is deleted
+                product.save();//save product with new image details
+            })
         console.log("updated image")
         req.flash("success","product image successfully updated");
         res.redirect("/admin/product");
       }else{
-        await fs.move("upload/"+req.file.originalname,"public/images/"+req.params.id+"/"+req.file.originalname);
+       product.image = req.file.url;
+       product.image_id = req.file.public_id;
+       product.save();
         req.flash("success","product image successfully updated");
         res.redirect("/admin/product");
         console.log("updated image")

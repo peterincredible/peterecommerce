@@ -53,9 +53,9 @@
                             <h3 class="panel-title"><b>Orders</b></h3>
                         </div>
                         <div class="panel-body">
-                                 <a href="/user/orders/finished_orders" style="color:black;" class="btn btn-default btn-sm"><b>Finished Orders ({{order_finished}})</b></a>
-                                 <a href="/user/orders/cancelled_orders" style="color:black;" class="btn btn-default btn-sm"><b>Cancelled Orders ({{order_cancelled}})</b></a>
-                                 <a href="/user/orders/pending_orders" style="color:black;" class="btn btn-default btn-sm"><b>Pending Orders ({{order_inprogress}})</b></a> 
+                                 <a href="/user/orders/finished_orders" style="color:black;" class="btn btn-default btn-sm add-margin-bottom"><b>Finished Orders ({{order_finished}})</b></a>
+                                 <a href="/user/orders/cancelled_orders" style="color:black;" class="btn btn-default btn-sm add-margin-bottom"><b>Cancelled Orders ({{order_cancelled}})</b></a>
+                                 <a href="/user/orders/pending_orders" style="color:black;" class="btn btn-default btn-sm add-margin-bottom"><b>Pending Orders ({{order_inprogress}})</b></a> 
                          </div>
                     </div>
                      <div class="panel panel-default">
@@ -74,7 +74,7 @@
                         <div class="panel-body">
                             {{#if packages}}
                                 {{#each packages}}
-                                <a href="/user/package-investment/{{_id}}" style="color:black;"class="btn btn-default btn-sm"><b>&#x20a6;{{volume}}</b></a>
+                                <a href="/user/package-investment/{{_id}}" style="color:black;"class="btn btn-default btn-sm add-margin-bottom"><b>&#x20a6;{{volume}}</b></a>
                                 {{/each}}
                                 {{else}}
                                 <p>no packages volume available</p>
@@ -87,12 +87,12 @@
                             <h3 class="panel-title">Admin</h3>
                         </div>
                         <div class="panel-body">
-                             <a href="/admin/make-user-admin" style="color:black;"class="btn btn-default btn-sm"><b>Make User Admin</b></a>
-                            <a href="/admin/delete-user" style="color:black;"class="btn btn-default btn-sm"><b>Delete User</b></a>                    
-                            <a href="/admin/product" style="color:black;"class="btn btn-default btn-sm"><b>Products</b></a>
-                            <a href="/admin/category" style="color:black;"class="btn btn-default btn-sm"><b>Categories</b></a>
-                            <a href="/user/orders" style="color:black;"class="btn btn-default btn-sm"><b>Orders</b></a>
-                            <a href="/admin/packages" style="color:black;" class="btn btn-default btn-sm"><b>Packages</b></a>
+                             <a href="/admin/make-user-admin" style="color:black;"class="btn btn-default btn-sm add-margin-bottom"><b>Make User Admin</b></a>
+                            <a href="/admin/delete-user" style="color:black;"class="btn btn-default btn-sm add-margin-bottom"><b>Delete User</b></a>                    
+                            <a href="/admin/product" style="color:black;"class="btn btn-default btn-sm add-margin-bottom"><b>Products</b></a>
+                            <a href="/admin/category" style="color:black;"class="btn btn-default btn-sm add-margin-bottom"><b>Categories</b></a>
+                            <a href="/user/orders" style="color:black;"class="btn btn-default btn-sm add-margin-bottom"><b>Orders</b></a>
+                            <a href="/admin/packages" style="color:black;" class="btn btn-default btn-sm add-margin-bottom"><b>Packages</b></a>
                         </div>
                     </div>
                 {{/if}}

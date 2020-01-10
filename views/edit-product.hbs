@@ -51,12 +51,12 @@
                 </form>
             </div>
     </div>
-    <div class="row" style="margin:0px;">
-        <div class="col-sm-6 col-sm-offset-3 col-xs-12" style="padding:0;">
+    <div class="row rm-margin-lr" >
+        <div class="col-sm-6 col-sm-offset-3 col-xs-12 rm-padding-lr">
               <h1 class="text-center">Edit Product Image</h1>
-              <img src="/images/{{product.id}}/{{product.image}}" style="width:250px; height:250px; display:block;" id="image-tag" class="center-block"/>
+              <img src="{{product.image}}" style="width:250px; height:250px; display:block;" id="image-tag" class="center-block"/>
         </div>
-        <div class="col-sm-6 col-sm-offset-3 col-xs-12" style="padding:0; margin-bottom:20px;">
+        <div class="col-sm-6 col-sm-offset-3 col-xs-12 rm-padding-lr" style=" margin-bottom:20px;">
                 <form action="/admin/update-product-image/{{product.id}}" method="POST" class="form block-center" enctype="multipart/form-data" >
                   <div class="form-group">
                       <label class="control-label">upload file</label>

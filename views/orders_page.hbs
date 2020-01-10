@@ -9,14 +9,14 @@
             <h2>Your Orders</h2>
             {{#if totalorders}}
                 {{#each totalorders}}
-                     <div class="list-group" style="margin-bottom:0px;">
-                         <div class="list-group-item" style="margin-bottom:8px;">
+                     <div class="list-group rm-margin-lr">
+                         <div class="list-group-item " style="margin-bottom:8px;">
                              <div class="col-xs-12">
                                     <div class="col-xs-10"><span style="margin-left:9px;"><b>Order id: {{transanction_id}}</b></span></div>
                                      <div class="col-xs-2 text-right">{{{cancel_orders process _id}}}</div>
                              </div>
                                 
-                                <div>
+                                <div class="table-responsive">
                                     <table class="table text-center">
                                         <thead>
                                             <tr>
@@ -32,7 +32,7 @@
                                             {{#each cart}}
                                                 <tr>
                                                     <td>{{name}}</td>
-                                                    <td><img src="/images/{{id}}/{{image}}" style="width:50px;height:50px;" alt="no image"/></td>
+                                                    <td><img src="{{image}}" style="width:50px;height:50px;" alt="no image"/></td>
                                                     <td>{{price}}</td>
                                                     <td>{{quantity}}</td>
                                                     <td>{{totalprice}}</td>

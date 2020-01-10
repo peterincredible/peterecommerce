@@ -108,6 +108,12 @@ a:hover{
     margin-top:0;
     margin-bottom:0
 }
+.add-margin-top{
+    margin-top:10px;
+}
+.add-margin-bottom{
+    margin-top:10px;
+}
 .mk-flex{
     display: flex;
 }
@@ -142,6 +148,11 @@ a:hover{
     flex-grow:1;
     flex-shrink:1;
 }
+.detail-page-img{
+    width:100%;
+    height:200px;
+}
+
 
 
 @media(max-width:770px){
@@ -150,6 +161,13 @@ a:hover{
     }
     .edit-product-height{
         min-height:585px;
+    }
+    .table{
+        display:block;
+        width:100%;
+    }
+    .table-overflow{
+        overflow-x: auto;
     }
   
 }
