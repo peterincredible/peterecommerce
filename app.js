@@ -37,8 +37,8 @@ store:new mongostore({mongooseConnection:mongoose.connection}),
 cookie:{}
 }
 if (app.get('env') === 'production') {
-    app.set('trust proxy', 1) // trust first proxy
-    secret.cookie.secure = true // serve secure cookies
+    //app.set('trust proxy', 1) // trust first proxy
+    //secret.cookie.secure = true // serve secure cookies
   }
 app.use(session(secret));
 app.use(flash());
