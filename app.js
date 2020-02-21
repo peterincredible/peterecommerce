@@ -29,17 +29,11 @@ let flash = require("connect-flash");
 let user = require("./routers/user");
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:false}));
-app.use(cookie());
 let secret ={secret:"beans",
 saveUninitialized:true,
 resave:true,
 store:new mongostore({mongooseConnection:mongoose.connection}),
-cookie:{}
 }
-if (app.get('env') === 'production') {
-    //app.set('trust proxy', 1) // trust first proxy
-    //secret.cookie.secure = true // serve secure cookies
-  }
 app.use(session(secret));
 app.use(flash());
 app.use(passport.initialize());
