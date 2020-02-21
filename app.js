@@ -6,6 +6,20 @@ let passport = require("./mypassport");
 let orderrouter = require("./routers/order");
 let app = express();
 let mongoose = require("mongoose");
+if(process.env.PORT){
+    mongoose.connect("mongodb://peterincredible:omolola3@ds139979.mlab.com:39979/heroku_z4d509bt")
+
+  }else{
+         mongoose.connect("mongodb://localhost/peterecommerce");
+  }
+ 
+ mongoose.connection.once("open",()=>{
+     console.log("successfully connected to the database");
+ });
+ mongoose.connection.on("close",()=>{
+     console.log("connection was closed");
+ })
+ mongoose.Promise = global.Promise;
 //set up various middlewares
 let bodyparser = require("body-parser");
 let cookie = require("cookie-parser");
@@ -16,13 +30,17 @@ let user = require("./routers/user");
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(cookie());
-app.use(session({secret:"beans",
+let secret ={secret:"beans",
 saveUninitialized:true,
 resave:true,
 store:new mongostore({mongooseConnection:mongoose.connection}),
 cookie:{}
-
-}));
+}
+if (app.get('env') === 'production') {
+    app.set('trust proxy', 1) // trust first proxy
+    sess.cookie.secure = true // serve secure cookies
+  }
+app.use(session(secret));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -50,22 +68,7 @@ let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
 }});
 
 
-  if(process.env.PORT){
-    mongoose.connect("mongodb://peterincredible:omolola3@ds139979.mlab.com:39979/heroku_z4d509bt")
-    app.set('trust proxy', 1)
-    session.cookie.secure = true;
-
-  }else{
-         mongoose.connect("mongodb://localhost/peterecommerce");
-  }
- 
- mongoose.connection.once("open",()=>{
-     console.log("successfully connected to the database");
- });
- mongoose.connection.on("close",()=>{
-     console.log("connection was closed");
- })
- mongoose.Promise = global.Promise;
+  
 //#ending of setting up the mongoose database
 //setting up the view engine
 app.engine(".hbs",hbs.engine);
