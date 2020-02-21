@@ -4,6 +4,27 @@ let Product = require("./db/product");
 let Category = require("./db/category");
 let passport = require("./mypassport");
 let orderrouter = require("./routers/order");
+let app = express();
+let bodyparser = require("body-parser");
+let cookie = require("cookie-parser");
+let session = require("express-session");
+let mongostore = require("connect-mongo")(session);
+let flash = require("connect-flash");
+let user = require("./routers/user");
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended:false}));
+app.use(cookie());
+app.use(session({secret:"beans",
+saveUninitialized:true,
+resave:true,
+store:new mongostore({mongooseConnection:mongoose.connection}),
+cookie:{secure:true}
+
+}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+let mongoose = require("mongoose");
 let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
     compare:function(val1,val2,options){
         if(val1 == val2){
@@ -25,8 +46,7 @@ let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
         return (str == "cancelled")? "": `<a href='/user/orders/cancel_order/${_id}' class='btn btn-danger pull-right'>cancel order</a>`;
     }
 }});
-let app = express();
-let mongoose = require("mongoose");
+
 
   if(process.env.PORT){
     mongoose.connect("mongodb://peterincredible:omolola3@ds139979.mlab.com:39979/heroku_z4d509bt")
@@ -47,25 +67,7 @@ app.engine(".hbs",hbs.engine);
 app.set("view engine",".hbs");
 //#end of setting up the view engine
 //set up various middlewares
-let bodyparser = require("body-parser");
-let cookie = require("cookie-parser");
-let session = require("express-session");
-let mongostore = require("connect-mongo")(session);
-let flash = require("connect-flash");
-let user = require("./routers/user");
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended:false}));
-app.use(cookie());
-app.use(session({secret:"beans",
-saveUninitialized:true,
-resave:true,
-store:new mongostore({mongooseConnection:mongoose.connection}),
-cookie:{secure:true}
 
-}));
-app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
 //#end of setting up various middlewares
 //setting up the mongoose database
  
