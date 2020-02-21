@@ -57,8 +57,8 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(cookie());
 app.use(session({secret:"beans",
-saveUninitialized:true,
-resave:true,
+saveUninitialized:false,
+resave:false,
 store:new mongostore({mongooseConnection:mongoose.connection})
 }));
 app.use(flash());

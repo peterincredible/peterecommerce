@@ -204,4 +204,5 @@ router.get("/investment-page",authenthicate("user"),async(req,res)=>{
      }
 });
 //end of the get investment page route
+
 module.exports = router;

@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="row flex-content rm-margin-lr">
-         <div class="col-sm-8 col-sm-offset-2 ">
+         <div class="col-sm-4 col-sm-offset-4 ">
             <div class="panel panel-default"style="margin-top:100px;">
                 <div class="panel-heading">
                     <div class="row">
@@ -14,13 +14,13 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <form  method="POST" action="/user/package-investment/{{package._id}}" id="cvc">
+                    <form  method="POST" action="/cart/product/checkout/product-purchased/{{user_id}}" id="cvc">
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="form-group">
                                     <label>CARD NUMBER</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Valid Card Number" />
+                                        <input type="text" class="form-control" placeholder="Valid Card Number"  name="card_no"/>
                                         <span class="input-group-addon"><span class="fa fa-credit-card"></span></span>
                                     </div>
                                 </div>
@@ -30,13 +30,13 @@
                             <div class="col-xs-7 col-md-7">
                                 <div class="form-group">
                                     <label><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
-                                    <input type="text" class="form-control" placeholder="MM / YY" />
+                                    <input type="text" class="form-control" placeholder="MM / YY" name="exp"/>
                                 </div>
                             </div>
                             <div class="col-xs-5 col-md-5 pull-right">
                                 <div class="form-group">
                                     <label>CV CODE</label>
-                                    <input type="text" class="form-control" placeholder="CVC" />
+                                    <input type="text" class="form-control" placeholder="CVC" name="cv_code" />
                                 </div>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                             <div class="col-xs-12">
                                 <div class="form-group">
                                     <label>CARD OWNER</label>
-                                    <input type="text" class="form-control" placeholder="Card Owner Names" />
+                                    <input type="text" class="form-control" placeholder="Card Owner Names" name="card_owner"/>
                                 </div>
                             </div>
                         </div>

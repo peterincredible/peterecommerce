@@ -3,8 +3,23 @@ let Product = require("../db/product");
 let Orders = require("../db/order-db");
 let uuidv4 = require("uuid/v4");
 let moment = require("moment");
-router.get("/product/checkout/product-purchased",async function(req,res){
-   if(req.user){
+let paystack = require("paystack-api")("sk_test_c2bf95033412e480c0a58cb556420aadb7ce57f5");
+router.post("/product/checkout/product-purchased/:id",async function(req,res){
+ //// console.dir(req.params.id);
+ // console.dir(req.session.cart);
+  try{
+        let data = await paystack.transaction.initialize({
+          email: 'z@icloud.com',
+          amount: 28700000,
+          callback_url:"localhost:5000"
+        });
+        console.log(data);
+        res.redirect(data.data.authorization_url);
+   
+  }catch(err){
+    console.log(err)
+  }
+   /*if(req.user){
      let order;
      try{
        order = new Orders(
@@ -22,11 +37,11 @@ router.get("/product/checkout/product-purchased",async function(req,res){
       res.send(err.error)
      }
     
-   }
+   }*/
 });
 router.get("/product/checkout/purchase-product",async function(req,res){
-  
-  res.render('cart-product-payment');
+          
+  res.render('cart-product-payment',{user_id:req.user._id});
 })
 router.get("/product/checkout-page/clear-cart",function(req,res){
      let cart = req.session.cart;
