@@ -5,6 +5,8 @@ let Category = require("./db/category");
 let passport = require("./mypassport");
 let orderrouter = require("./routers/order");
 let app = express();
+let mongoose = require("mongoose");
+//set up various middlewares
 let bodyparser = require("body-parser");
 let cookie = require("cookie-parser");
 let session = require("express-session");
@@ -18,13 +20,13 @@ app.use(session({secret:"beans",
 saveUninitialized:true,
 resave:true,
 store:new mongostore({mongooseConnection:mongoose.connection}),
-cookie:{secure:true}
+cookie:{}
 
 }));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-let mongoose = require("mongoose");
+//#end of setting up various middlewares
 let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
     compare:function(val1,val2,options){
         if(val1 == val2){
@@ -50,6 +52,9 @@ let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
 
   if(process.env.PORT){
     mongoose.connect("mongodb://peterincredible:omolola3@ds139979.mlab.com:39979/heroku_z4d509bt")
+    app.set('trust proxy', 1)
+    session.cookie.secure = true;
+
   }else{
          mongoose.connect("mongodb://localhost/peterecommerce");
   }
@@ -66,9 +71,7 @@ let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
 app.engine(".hbs",hbs.engine);
 app.set("view engine",".hbs");
 //#end of setting up the view engine
-//set up various middlewares
 
-//#end of setting up various middlewares
 //setting up the mongoose database
  
 
