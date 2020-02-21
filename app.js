@@ -57,9 +57,11 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(cookie());
 app.use(session({secret:"beans",
-saveUninitialized:false,
-resave:false,
-store:new mongostore({mongooseConnection:mongoose.connection})
+saveUninitialized:true,
+resave:true,
+store:new mongostore({mongooseConnection:mongoose.connection}),
+cookie:{secure:true}
+
 }));
 app.use(flash());
 app.use(passport.initialize());
