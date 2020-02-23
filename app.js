@@ -57,7 +57,7 @@ let hbs = exphbs.create({extname:".hbs",defaultLayout:"main",helpers:{
     },
     cancel_orders:function(str,_id){
     
-        return (str == "cancelled")? "": `<a href='/user/orders/cancel_order/${_id}' class='btn btn-danger pull-right'>cancel order</a>`;
+        return (str == "cancelled")? "": `<a href='/user/orders/cancel_order/${_id}' style='display:inline-block;' class=' btn btn-danger'>cancel</a>`;
     }
 }});
 

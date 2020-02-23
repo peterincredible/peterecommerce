@@ -1,27 +1,28 @@
-<div class="flex-container rm-padding-lr" style="">
-    <div class="row flex-header rm-margin-lr">
-        <div class="col-md-12 rm-padding-lr">
+<div class="flex-container rm-padding-lr">
+    <div class="row flex-header rm-margin-lr" >
+        <div class="col-md-12 rm-padding-lr" >
             {{>header2}}
         </div>
     </div>
     <div class="row flex-content rm-margin-lr">
-        <div class="col-md-8 col-md-offset-2 force-overflow" >
-            <h2>Your Orders</h2>
+        <div class="col-md-6 col-md-offset-3 p-4" >
+            <h2>Finished Orders</h2>
             {{#if totalorders}}
                 {{#each totalorders}}
-                     <div class="list-group" style="margin-bottom:0px;">
-                         <div class="list-group-item" style="margin-bottom:8px;">
-                                <div><span style="margin-left:35px;" class="push-left"><b>Order id: {{transanction_id}}    status:Canclled </b></span></div>
-
-                                <div>
-                                    <table class="table text-center">
+                     <div class="list-group rm-margin-lr">
+                         <div class="list-group-item p-4 rm-border" style="margin-bottom:8px;">
+                                <div class="">
+                                    <table class="table table-responsive text-center">
+                                        <p class="mk-flex flex-center flex-center-ai"> 
+                                            <span style="display:inline-block; margin-right:10px;"><b>Order id: {{transanction_id}}</b></span>
+                                        </p>
                                         <thead>
                                             <tr>
-                                                <th class="text-center">Product</th>
-                                                <th class="text-center">Image</th>
-                                                <th class="text-center"> price</th>
-                                                <th class="text-center">quantity</th>
-                                                <th class="text-center">Total Price</th>
+                                                <th class="text-center p-4">Product</th>
+                                                <th class="text-center p-4">Image</th>
+                                                <th class="text-center p-4"> price</th>
+                                                <th class="text-center p-4">quantity</th>
+                                                <th class="text-center p-4">Amount</th>
                                                 
                                             </tr>
                                         </thead>
@@ -32,7 +33,7 @@
                                                     <td><img src="{{image}}" style="width:50px;height:50px;" alt="no image"/></td>
                                                     <td>{{price}}</td>
                                                     <td>{{quantity}}</td>
-                                                    <td>{{totalprice}}</td>
+                                                    <td> &#8358;{{totalprice}}</td>
                                                     
                                                 </tr>
                                             {{/each}}
@@ -41,8 +42,8 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td><b>Total Price</b></td>
-                                            <td><b>{{totalprice}}</b></td>
+                                            <td><b>Total</b></td>
+                                            <td><b> &#8358;{{totalprice}}</b></td>
                                         </tfoot>
                                     </table>
                                 </div>
@@ -57,7 +58,7 @@
               
     </div>
     
-    <div class="row flex-footer rm-margin-lr" >
+    <div class="row flex-footer rm-margin-lr">
             {{>footer}}
     </div>
 </div>

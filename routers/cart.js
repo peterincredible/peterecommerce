@@ -4,14 +4,17 @@ let Orders = require("../db/order-db");
 let uuidv4 = require("uuid/v4");
 let moment = require("moment");
 let paystack = require("paystack-api")("sk_test_c2bf95033412e480c0a58cb556420aadb7ce57f5");
-router.post("/product/checkout/product-purchased/:id",async function(req,res){
- //// console.dir(req.params.id);
- // console.dir(req.session.cart);
+router.get("/product/checkout/purchase-product",async function(req,res){
+   console.log(req.user);
+   let total_ch = 0// this is the initial total amount
+   let cart = req.session.cart;
+   for(let data in cart){
+      total_ch += cart[data].price * cart[data].quantity;
+  }
   try{
         let data = await paystack.transaction.initialize({
-          email: 'z@icloud.com',
-          amount: 28700000,
-          callback_url:"localhost:5000"
+          email:  req.user.email,
+          amount: parseInt(total_ch.toString() + "00")
         });
         console.log(data);
         res.redirect(data.data.authorization_url);
@@ -19,30 +22,37 @@ router.post("/product/checkout/product-purchased/:id",async function(req,res){
   }catch(err){
     console.log(err)
   }
-   /*if(req.user){
-     let order;
-     try{
-       order = new Orders(
-          {user:req.user.id,
-           transaction_id:uuidv4(),
-           quantity:res.locals.cartcounter,
-           cart:req.session.cart,
-           time:moment().format("ll")
-          }
-       );
-       await order.save();
-       res.send("<h1>successfull transaction</h1>")
-     }catch(err){
-       console.dir(err)
-      res.send(err.error)
-     }
-    
-   }*/
+   
 });
-router.get("/product/checkout/purchase-product",async function(req,res){
-          
-  res.render('cart-product-payment',{user_id:req.user._id});
+//testing with paystack callback url
+router.get("/product/checkout/paystack",async (req,res)=>{
+    try{
+         let reference = req.query.reference;
+         let data = await paystack.transaction.verify({reference});
+         if(req.user){
+              let order;
+              order = new Orders(
+                    {user:req.user.id,
+                      transaction_id:data.data.reference,
+                      quantity:res.locals.cartcounter,
+                      cart:req.session.cart,
+                      time:moment().format("ll")
+                   }
+                  );
+       await order.save();
+       console.log(req.session.cart)
+       delete req.session.cart;
+       delete req.session.cartcounter;
+       res.redirect("/");
+     }
+    }catch(err){
+                console.log("error ooo",err)
+                res.send(err.error)
+    }
 })
+
+
+//end testing with paystack callback url
 router.get("/product/checkout-page/clear-cart",function(req,res){
      let cart = req.session.cart;
      for(let data in cart){
