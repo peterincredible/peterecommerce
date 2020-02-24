@@ -318,7 +318,8 @@ router.get("/add-package",authenthicate("admin"),async(req,res)=>{
 router.post("/add-package",authenthicate("admin"),async(req,res)=>{
     try{
          let num = parseInt(req.body.name);
-         let data = new Packages({volume:num});
+         let code = req.body.code;
+         let data = new Packages({volume:num,code});
          await data.save();
          req.flash("success","package added successfully");
          res.redirect("/admin/packages");

@@ -3,7 +3,6 @@ let exphbs = require("express-handlebars");
 let Product = require("./db/product");
 let Category = require("./db/category");
 let passport = require("./mypassport");
-let orderrouter = require("./routers/order");
 let app = express();
 let mongoose = require("mongoose");
 if(process.env.PORT){
@@ -26,7 +25,6 @@ let cookie = require("cookie-parser");
 let session = require("express-session");
 let mongostore = require("connect-mongo")(session);
 let flash = require("connect-flash");
-let user = require("./routers/user");
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:false}));
 let secret ={secret:"beans",
@@ -34,6 +32,7 @@ saveUninitialized:true,
 resave:true,
 store:new mongostore({mongooseConnection:mongoose.connection}),
 }
+app.use(cookie());
 app.use(session(secret));
 app.use(flash());
 app.use(passport.initialize());
@@ -110,10 +109,13 @@ app.get("/search/product",async (req,res)=>{
 //getting the various routers
 let adminrouter = require("./routers/admin");
 let cartrouter = require("./routers/cart");
+let orderrouter = require("./routers/order");
+let user = require("./routers/user");
 app.use("/admin",adminrouter);
 app.use("/user",user);
 app.use("/cart",cartrouter);
 app.use("/user",orderrouter);
+
 //#end of getting the various routers
 app.listen(port,()=>{
     console.log("server is listening to port 3000"+__dirname);

@@ -8,6 +8,7 @@ let Orders = require("../db/order-db");
 let passport = require("../mypassport");
 let authenthicate = require("../authenthication");
 var csrf = require('csurf');
+let paystack = require("paystack-api")("sk_test_c2bf95033412e480c0a58cb556420aadb7ce57f5");
 let moment = require("moment");
 var csrfProtection = csrf({ cookie: true });
 //isauthenthicated to check if a user is authenthicated
@@ -47,7 +48,7 @@ router.post("/registration",(req,res)=>{
 });
 //start of the get signin page
 router.get("/signin",csrfProtection,(req,res)=>{
-  res.render("login-page",{csrfToken: req.csrfToken() });
+  res.render("login-page",{csrfToken: req.csrfToken()});
 })
 //end of the get signin page
 //start of the post signin-page
@@ -167,8 +168,16 @@ router.get("/package-investment/:id",authenthicate("user"),async (req,res)=>{
   
   
   try{
-    let package = await Packages.findById(req.params.id);
-     res.render("package-investment-payment-page",{package});
+        let package = await Packages.findById(req.params.id);
+        console.log(package);
+        let data = await paystack.transaction.initialize({
+          email:  req.user.email,
+          amount:7000,
+          plan:"PLN_6vub51sv3eezfst",
+          invoice_limit:1
+        });
+        console.log(data,"paystack data");
+        res.redirect(data.data.authorization_url);
 
   }catch(err){
     res.status(401).send("<h1>we dont have this package investment volume</h1>")
@@ -178,9 +187,13 @@ router.get("/package-investment/:id",authenthicate("user"),async (req,res)=>{
 
 //start working on the post user package investement route
 router.post("/package-investment/:id",authenthicate("user"),async (req,res)=>{
-    
+       try{
+
+       }catch(err){
+         console.log("there was an error")
+       }
   
-  try{
+ /* try{
     let package = await Packages.findById(req.params.id);
     let user = await User.findById(req.user.id);
     user.investment.push({volume:package.volume,time:moment().format("ll")});
@@ -189,7 +202,7 @@ router.post("/package-investment/:id",authenthicate("user"),async (req,res)=>{
 
   }catch(err){
     res.status(401).send("<h1>we have a problem on the package investment post route</h1>");
-  }
+  }*/
 })
 //end of the post user package investment route
 

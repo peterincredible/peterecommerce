@@ -29,23 +29,28 @@ router.get("/product/checkout/paystack",async (req,res)=>{
     try{
          let reference = req.query.reference;
          let data = await paystack.transaction.verify({reference});
+              console.log(data);
          if(req.user){
-              let order;
-              order = new Orders(
-                    {user:req.user.id,
-                      transaction_id:data.data.reference,
-                      quantity:res.locals.cartcounter,
-                      cart:req.session.cart,
-                      time:moment().format("ll")
-                   }
-                  );
-       await order.save();
-       console.log(req.session.cart)
-       delete req.session.cart;
-       delete req.session.cartcounter;
-       res.redirect("/");
-     }
-    }catch(err){
+              if(data.data.plan != null){
+                    console.log("plan not equall to mull");
+              }else{
+                      let order;
+                      order = new Orders(
+                            {user:req.user.id,
+                              transaction_id:data.data.reference,
+                              quantity:res.locals.cartcounter,
+                              cart:req.session.cart,
+                              time:moment().format("ll")
+                          }
+                          );
+  
+                        await order.save();
+                        delete req.session.cart;
+                        delete req.session.cartcounter;
+                        res.redirect("/");
+                }
+    }
+  }catch(err){
                 console.log("error ooo",err)
                 res.send(err.error)
     }

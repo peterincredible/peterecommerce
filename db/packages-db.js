@@ -4,6 +4,10 @@ let tempschema = new schema({
    volume:{
        type:Number,
        unique:true
+   },
+   code:{
+       type:String,
+       unique:true
    }
 });
 
