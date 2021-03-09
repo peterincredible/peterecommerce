@@ -165,7 +165,7 @@ router.post("/edit-profile/:id",authenthicate("user"),async(req,res)=>{
 
 //start working on the get user package investment page
 router.get("/package-investment/:id",authenthicate("user"),async (req,res)=>{
-  
+      
   
   try{
         let package = await Packages.findById(req.params.id);
@@ -173,7 +173,7 @@ router.get("/package-investment/:id",authenthicate("user"),async (req,res)=>{
         let data = await paystack.transaction.initialize({
           email:  req.user.email,
           amount:7000,
-          plan:"PLN_6vub51sv3eezfst",
+          plan: package.code,
           invoice_limit:1
         });
         console.log(data,"paystack data");

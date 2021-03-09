@@ -6,7 +6,7 @@ let passport = require("./mypassport");
 let app = express();
 let mongoose = require("mongoose");
 if(process.env.PORT){
-    mongoose.connect("mongodb://peterincredible:omolola3@ds139979.mlab.com:39979/heroku_z4d509bt")
+    mongoose.connect("mongodb+srv://peterincredible:<omolola1993>@cluster0.xjljq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
   }else{
          mongoose.connect("mongodb://localhost/peterecommerce");

@@ -4,6 +4,8 @@ let Orders = require("../db/order-db");
 let uuidv4 = require("uuid/v4");
 let moment = require("moment");
 let paystack = require("paystack-api")("sk_test_c2bf95033412e480c0a58cb556420aadb7ce57f5");
+let User = require("../db/user-db");
+let Packages = require("../db/packages-db");
 router.get("/product/checkout/purchase-product",async function(req,res){
    console.log(req.user);
    let total_ch = 0// this is the initial total amount
@@ -32,6 +34,10 @@ router.get("/product/checkout/paystack",async (req,res)=>{
               console.log(data);
          if(req.user){
               if(data.data.plan != null){
+                    let user = await User.findById(req.user._id);
+                    let package = await Packages.findOne({code:data.data.plan});
+                    user.investment.push({volume:package.volume,time:moment().format("ll")});
+                    await user.save();
                     console.log("plan not equall to mull");
               }else{
                       let order;
@@ -47,7 +53,7 @@ router.get("/product/checkout/paystack",async (req,res)=>{
                         await order.save();
                         delete req.session.cart;
                         delete req.session.cartcounter;
-                        res.redirect("/");
+                        res.redirect("/dashboard");
                 }
     }
   }catch(err){
