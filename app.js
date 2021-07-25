@@ -13,7 +13,7 @@ if(process.env.PORT){
 
   }else{
          //mongoose.connect("mongodb://localhost/peterecommerce");
-         mongoose.connect("mongodb+srv://peterincredible:omolola1993@cluster0.xjljq.mongodb.net/nodejs_ecommerce?retryWrites=true&w=majority")
+         mongoose.connect("mongodb+srv://<username>:<password>@cluster0.xjljq.mongodb.net/nodejs_ecommerce?retryWrites=true&w=majority")
   }
 
   
