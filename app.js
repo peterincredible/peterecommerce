@@ -5,16 +5,20 @@ let Category = require("./db/category");
 let passport = require("./mypassport");
 let app = express();
 let mongoose = require("mongoose");
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 if(process.env.PORT){
-     mongoose.connect("mongodb+srv://peterincredible:omolola1993@cluster0.xjljq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+     mongoose.connect("mongodb+srv://peterincredible:omolola1993@cluster0.xjljq.mongodb.net/nodejs_ecommerce?retryWrites=true&w=majority")
 
   }else{
-         mongoose.connect("mongodb://localhost/peterecommerce");
+         //mongoose.connect("mongodb://localhost/peterecommerce");
+         mongoose.connect("mongodb+srv://peterincredible:omolola1993@cluster0.xjljq.mongodb.net/nodejs_ecommerce?retryWrites=true&w=majority")
   }
 
   
  mongoose.connection.once("open",()=>{
-     console.log("successfully connected to the database");
+     console.log("successfully connected to the database yoo");
  });
  mongoose.connection.on("close",()=>{
      console.log("connection was closed");
